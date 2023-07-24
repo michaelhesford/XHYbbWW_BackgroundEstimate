@@ -8,7 +8,7 @@ import os
 import numpy as np
 
 def _get_other_region_names(pass_reg_name):
-    return pass_reg_name,pass_reg_name.replace('fail','pass')
+    return pass_reg_name,pass_reg_name.replace('pass','fail')
 
 def _select_signal(row, args):
     signame = args[0]
@@ -108,26 +108,37 @@ def test_make(SRorCR):
     qcd_hists = twoD.InitQCDHists() #Data - Background histograms
 
     # this loop only runs once, since the only regions are CR_fail, CR_pass
-    for f,l,p in [_get_other_region_names(r) for r in twoD.ledger.GetRegions() if 'fail' in r]:
+    for f,p in [_get_other_region_names(r) for r in twoD.ledger.GetRegions() if 'fail' in r]:
         binning_f, _ = twoD.GetBinningFor(f)
-    fail_name = 'Background_'+f
-    qcd_f = BinnedDistribution(
-		fail_name, qcd_hists[f],
-		binning_f, constant=False
+        fail_name = 'Background_'+f
+        qcd_f = BinnedDistribution(
+	    fail_name, qcd_hists[f],
+	    binning_f, constant=False
 	)
-    twoD.AddAlphaObj('Background',f,qcd_f)
+        twoD.AddAlphaObj('Background',f,qcd_f)
 
-    # 1x0 TF to go between F->P
-    qcd_rpf = ParametricFunction(
-        fail_name.replace('fail','rpf'),
-        binning_f, _rpf_options['1x0']['form'],
-        constraints=_rpf_options['1x0']['constraints']
-    )
+        '''
+        # 1x0 TF to go between F->P
+        qcd_rpf = ParametricFunction(
+            fail_name.replace('fail','rpf'),
+            binning_f, _rpf_options['1x0']['form'],
+            constraints=_rpf_options['1x0']['constraints']
+        )
+        # qcd_p = qcd_f*rpf
+        qcd_p = qcd_f.Multiply(fail_name.replace('fail','pass'),qcd_rpf) 
+        twoD.AddAlphaObj('Background',p,qcd_p,title='Background')
+        '''
 
-    # qcd_p = qcd_f*rpf
-    qcd_p = qcd_f.Multiply(fail_name.replace('fail','pass'),qcd_rpf)
+        for opt_name, opt in _rpf_options.items():
+            qcd_rpf = ParametricFunction(
+                fail_name.replace('fail','rpf')+'_'+opt_name,
+                binning_f, opt['form'],
+                constraints=opt['constraints']
+            )
+            # qcd_p = qcd_f*rpf
+            qcd_p = qcd_f.Multiply(fail_name.replace('fail','pass')+'_'+opt_name, qcd_rpf)
+            twoD.AddAlphaObj('Background_'+opt_name,p,qcd_p,title='Background')
 
-    twoD.AddAlphaObj('Background',p,qcd_p,title='Background') 
     twoD.Save()
 
 def test_fit(SRorCR, signal, tf='', extra='--robustHesse 1'):

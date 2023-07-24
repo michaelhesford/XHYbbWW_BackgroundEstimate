@@ -1,174 +1,201 @@
 {
-    'NAME' : 'XHYbbWW_semileptonic',
-    'GLOBAL' : {
-        'FILE' : 'XHYbbWWselection_$process.root',
-        'FILE_UP' : 'XHYbbWWselection_$process_$syst_up.root',
-        'FILE_DOWN' : 'XHYbbWWselection_$process_$syst_down.root',
-        'HIST' : 'MXvsMY_$region__nominal',
-        'HIST_UP' : 'MXvsMY_$region__$syst_up',
-        'HIST_DOWN' : 'MXvsMY_$region__$syst_down',
-        'path' : '/uscms/home/mhesford/nobackup/XHYbbWW/CMSSW_11_1_4/src/semileptonic/selection/',
-        'SIGNAME' : ['XHY-4000-2500','XHY-3500-1800','XHY-3000-1400','XHY-2500-1300','XHY-2000-1000','XHY-1600-700','XHY-1000-500']
+    "NAME" : "XHYbbWW_semileptonic",
+    "GLOBAL" : {
+         "FILE" : "XHYbbWWselection_$process.root",
+         "FILE_UP" : "XHYbbWWselection_$process_$syst_up.root",
+         "FILE_DOWN" : "XHYbbWWselection_$process_$syst_down.root",
+         "HIST" : "MXvMY_$region__nominal",
+         "HIST_UP" : "MXvMY_$region__$syst_up",
+         "HIST_DOWN" : "MXvMY_$region__$syst_down",
+         "path" : "/uscms/home/mhesford/nobackup/XHYbbWW/CMSSW_11_1_4/src/semileptonic/selection/",
+         "SIGNAME" : ["XHY-2000-1000"]
     },
-    'REGIONS' : {
-        'pass_SR' : {
-            'PROCESSES' : ['ttbar_16','ttbar_16APV','ttbar_17','ttbar_18'],
-            'BINNING' : 'default'
+    "PROCESSES" : {
+        "data_obs" : {
+            "SYSTEMATICS" : [],
+            "SCALE" : 1.0,
+            "COLOR" : 1,
+            "TYPE" : "DATA",
+            "ALIAS" : "DataRun2",
+            "TITLE" : "Data",
+            "LOC" : "path/FILE:HIST"
         },
-        'pass_CR' : {
-            'PROCESSES' : ['ttbar_16','ttbar_16APV','ttbar_17','ttbar_18'], 
-            'BINNING' : 'default'
+        "ttbar-allhad_16" : {
+            "SYSTEMATICS" : ["lumi","pileup","prefire","jer","jes","jmr","jms"],
+            "SCALE" : 1.0,
+            "COLOR" : 1,
+            "TYPE" : "BKG",
+            "TITLE" : "hadronic t#bar{t}",
+            "LOC" : "path/FILE:HIST"
         },
-        'fail_SR' : {
-            'PROCESSES' : ['ttbar_16','ttbar_16APV','ttbar_17','ttbar_18'], 
-            'BINNING' : 'default'
+        "ttbar-allhad_16APV" : {
+            "SYSTEMATICS" : ["lumi","pileup","prefire","jer","jes","jmr","jms"],
+            "SCALE" : 1.0,
+            "COLOR" : 1,
+            "TYPE" : "BKG",
+            "TITLE" : "hadronic t#bar{t}",
+            "LOC" : "path/FILE:HIST"
         },
-        'fail_CR' : {
-            'PROCESSES' : ['ttbar_16','ttbar_16APV','ttbar_17','ttbar_18'],
-            'BINNING' : 'default'
+        "ttbar-allhad_18" : {
+            "SYSTEMATICS" : ["lumi","pileup","jer","jes","jmr","jms"],
+            "SCALE" : 1.0,
+            "COLOR" : 1,
+            "TYPE" : "BKG",
+            "TITLE" : "hadronic t#bar{t}",
+            "LOC" : "path/FILE:HIST"
+        },
+        "ttbar-semilep_16" : {
+            "SYSTEMATICS" : ["lumi","pileup","prefire","jer","jes","jmr","jms"],
+            "SCALE" : 1.0,
+            "COLOR" : 1,
+            "TYPE" : "BKG",
+            "TITLE" : "semileptonic t#bar{t}",
+            "LOC" : "path/FILE:HIST"
+        },
+        "ttbar-semilep_16APV" : {
+            "SYSTEMATICS" : ["lumi","pileup","prefire","jer","jes","jmr","jms"],
+            "SCALE" : 1.0,
+            "COLOR" : 1,
+            "TYPE" : "BKG",
+            "TITLE" : "semileptonic t#bar{t}",
+            "LOC" : "path/FILE:HIST"
+        },
+        "ttbar-semilep_17" : {
+            "SYSTEMATICS" : ["lumi","pileup","prefire","jer","jes","jmr","jms"],
+            "SCALE" : 1.0,
+            "COLOR" : 1,
+            "TYPE" : "BKG",
+            "TITLE" : "semileptonic t#bar{t}",
+            "LOC" : "path/FILE:HIST"
+        },
+        "ttbar-semilep_18" : {
+            "SYSTEMATICS" : ["lumi","pileup","jer","jes","jmr","jms"],
+            "SCALE" : 1.0,
+            "COLOR" : 1,
+            "TYPE" : "BKG",
+            "TITLE" : "semileptonic t#bar{t}",
+            "LOC" : "path/FILE:HIST"
+        },
+        "SIGNAME_16" : {
+            "SYSTEMATICS" : ["lumi","pileup","prefire","jer","jes","jmr","jms"],
+            "SCALE" : 1.0,
+            "COLOR" : 1,
+            "TYPE" : "SIGNAL",
+            "TITLE" : "SIGNAME",
+            "LOC" : "path/FILE:HIST"
+        },
+        "SIGNAME_16APV" : {
+            "SYSTEMATICS" : ["lumi","pileup","prefire","jer","jes","jmr","jms"],
+            "SCALE" : 1.0,
+            "COLOR" : 1,
+            "TYPE" : "SIGNAL",
+            "TITLE" : "SIGNAME",
+            "LOC" : "path/FILE:HIST"
+        },
+        "SIGNAME_17" : {
+            "SYSTEMATICS" : ["lumi","pileup","prefire","jer","jes","jmr","jms"],
+            "SCALE" : 1.0,
+            "COLOR" : 1,
+            "TYPE" : "SIGNAL",
+            "TITLE" : "SIGNAME",
+            "LOC" : "path/FILE:HIST"
+        },
+        "SIGNAME_18" : {
+            "SYSTEMATICS" : ["lumi","pileup","jer","jes","jmr","jms"],
+            "SCALE" : 1.0,
+            "COLOR" : 1,
+            "TYPE" : "SIGNAL",
+            "TITLE" : "SIGNAME",
+            "LOC" : "path/FILE:HIST"
+        }
+    },                                  
+    "REGIONS" : {
+        "pass_SR" : {
+            "PROCESSES" : ["SIGNAME","ttbar-allhad_16","ttbar-allhad_16APV","ttbar-allhad_18","ttbar-semilep_16","ttbar-semilep_16APV","ttbar-semilep_17","ttbar-semilep_18"],
+            "BINNING" : "default"
+        },
+        "pass_ttCR" : {
+            "PROCESSES" : ["SIGNAME","ttbar-allhad_16","ttbar-allhad_16APV","ttbar-allhad_18","ttbar-semilep_16","ttbar-semilep_16APV","ttbar-semilep_17","ttbar-semilep_18"],
+            "BINNING" : "default"
+        },
+        "fail_SR" : {
+            "PROCESSES" : ["SIGNAME","ttbar-allhad_16","ttbar-allhad_16APV","ttbar-allhad_18","ttbar-semilep_16","ttbar-semilep_16APV","ttbar-semilep_17","ttbar-semilep_18"],
+            "BINNING" : "default"
+        },
+        "fail_ttCR" : {
+            "PROCESSES" : ["SIGNAME","ttbar-allhad_16","ttbar-allhad_16APV","ttbar-allhad_18","ttbar-semilep_16","ttbar-semilep_16APV","ttbar-semilep_17","ttbar-semilep_18"],
+            "BINNING" : "default"
         }
     },
-    'PROCESSES' : {
-        'data_obs' : {
-            'SYSTEMATICS' : [],
-            'SCALE' : 1.0,
-            'COLOR' : 1,
-            'TYPE' : 'DATA',
-            'ALIAS' : 'DataRun2',
-            'TITLE' : 'Data',
-            'LOC' : 'path/FILE:HIST'
+    "SYSTEMATICS" : {
+        "lumi" : {
+            "CODE" : 0,
+            "VAL" : 1.016
         },
-        'ttbar_16' : {
-            'SYSTEMATICS' : ['lumi','pdf','pileup','prefire','jer','jes','jmr','jms'],
-            'SCALE' : 1.0,
-            'COLOR' : 1,
-            'TYPE' : 'BKG',
-            'TITLE' : 't#bar{t}',
-            'LOC' : 'path/FILE:HIST'
+        "pileup" : {
+            "ALIAS" : "Pileup",
+            "UP" : "path/FILE:HIST_UP",
+            "DOWN" : "path/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
         },
-        'ttbar_16APV' : {
-            'SYSTEMATICS' : ['lumi','pdf','pileup','prefire','jer','jes','jmr','jms'],
-            'SCALE' : 1.0,
-            'COLOR' : 1,
-            'TYPE' : 'BKG',
-            'TITLE' : 't#bar{t}',
-            'LOC' : 'path/FILE:HIST'
+        "prefire" : {
+            "ALIAS" : "L1PreFiringWeight",
+            "UP" : "path/FILE:HIST_UP",
+            "DOWN" : "path/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
         },
-        'ttbar_17' : {
-            'SYSTEMATICS' : ['lumi','pdf','pileup','prefire','jer','jes','jmr','jms'],
-            'SCALE' : 1.0,
-            'COLOR' : 1,
-            'TYPE' : 'BKG',
-            'TITLE' : 't#bar{t}',
-            'LOC' : 'path/FILE:HIST'
+        "jes" : {
+            "ALIAS" : "JES",
+            "UP" : "path/FILE_UP:HIST",
+            "DOWN" : "path/FILE_DOWN:HIST",
+            "SIGMA" : 1.0
         },
-        'ttbar_18' : {
-            'SYSTEMATICS' : ['lumi','pdf','pileup','jer','jes','jmr','jms'],
-            'SCALE' : 1.0,
-            'COLOR' : 1,
-            'TYPE' : 'BKG',
-            'TITLE' : 't#bar{t}',
-            'LOC' : 'path/FILE:HIST'
+        "jer" : {
+            "ALIAS" : "JER",
+            "UP" : "path/FILE_UP:HIST",
+            "DOWN" : "path/FILE_DOWN:HIST",
+            "SIGMA" : 1.0
         },
-        'SIGNAME_16' : {
-            'SYSTEMATICS' : ['lumi','pdf','pileup','prefire','jer','jes','jmr','jms'],
-            'SCALE' : 1.0,
-            'COLOR' : 1,
-            'TYPE' : 'SIGNAL',
-            'TITLE' : 'SIGNAME',
-            'LOC' : 'path/FILE:HIST'
+        "jms" : {
+            "ALIAS" : "JMS",
+            "UP" : "path/FILE_UP:HIST",
+            "DOWN" : "path/FILE_DOWN:HIST",
+            "SIGMA" : 1.0
         },
-        'SIGNAME_16APV' : {
-            'SYSTEMATICS' : ['lumi','pdf','pileup','prefire','jer','jes','jmr','jms'],
-            'SCALE' : 1.0,
-            'COLOR' : 1,
-            'TYPE' : 'SIGNAL',
-            'TITLE' : 'SIGNAME',
-            'LOC' : 'path/FILE:HIST'
-        },
-        'SIGNAME_17' : {
-            'SYSTEMATICS' : ['lumi','pdf','pileup','prefire','jer','jes','jmr','jms'],
-            'SCALE' : 1.0,
-            'COLOR' : 1,
-            'TYPE' : 'SIGNAL',
-            'TITLE' : 'SIGNAME',
-            'LOC' : 'path/FILE:HIST'
-        },
-        'SIGNAME_18' : {
-            'SYSTEMATICS' : ['lumi','pdf','pileup','jer','jes','jmr','jms'],
-            'SCALE' : 1.0,
-            'COLOR' : 1,
-            'TYPE' : 'SIGNAL',
-            'TITLE' : 'SIGNAME',
-            'LOC' : 'path/FILE:HIST'
-        },
+        "jmr" : {
+            "ALIAS" : "JMR",
+            "UP" : "path/FILE_UP:HIST",
+            "DOWN" : "path/FILE_DOWN:HIST",
+            "SIGMA" : 1.0
+        }
     },
-    'SYSTEMATICS' : {
-        'lumi' : {
-            'CODE' : 0,
-            'VAL' : 1.016
-        },
-        'pileup' : {
-            'ALIAS' : 'Pileup',
-            'UP' : 'path/FILE:HIST_UP',
-            'DOWN' : 'path/FILE:HIST_DOWN',
-            'SIGMA' : 1.0
-        },
-        'prefire' : {
-            'ALIAS' : 'L1PreFiringWeight',
-            'UP' : 'path/FILE:HIST_UP',
-            'DOWN' : 'path/FILE:HIST_DOWN',
-            'SIGMA' : 1.0
-        },
-        'pdf' : {
-            'ALIAS' : 'Pdfweight',
-            'UP' : 'path/FILE:HIST_UP',
-            'DOWN' : 'path/FILE:HIST_DOWN',
-            'SIGMA' : 1.0
-        },
-        'jes' : {
-            'ALIAS' : 'JES',
-            'UP' : 'path/FILE_UP:HIST',
-            'DOWN' : 'path/FILE_DOWN:HIST',
-            'SIGMA' : 1.0
-        },
-        'jer' : {
-            'ALIAS' : 'JER',
-            'UP' : 'path/FILE_UP:HIST',
-            'DOWN' : 'path/FILE_DOWN:HIST',
-            'SIGMA' : 1.0
-        },
-        'jms' : {
-            'ALIAS' : 'JMS',
-            'UP' : 'path/FILE_UP:HIST',
-            'DOWN' : 'path/FILE_DOWN:HIST',
-            'SIGMA' : 1.0
-        },
-        'jmr' : {
-            'ALIAS' : 'JMR',
-            'UP' : 'path/FILE_UP:HIST',
-            'DOWN' : 'path/FILE_DOWN:HIST',
-            'SIGMA' : 1.0
-        },
-    },
-    'BINNING' : {
-        'default' : {
-            'X' : {
-                'NAME' : 'X mass',
-                'TITLE' : 'm_{HWlv}',
-                'MIN' : 0,
-                'MAX' : 4500,
-                'NBINS' : 80
+    "BINNING" : {
+        "default" : {
+            "X" : {
+                "NAME" : "X mass",
+                "TITLE" : "m_{HWlv}",
+                "BINS" : [500,550,600,650,700,750,800,850,900,950,1000,1050,1100,1150,1200,1250,1300,1350,1400,1450,1550,1650,1750,1850,1950,2050,2200,2350,2500,3000,3500,4000,4500],
+                "SIGSTART": 1450,
+                "SIGEND": 2500
             },
-            'Y' : {
-                'NAME' : 'Y mass',
-                'TITLE' : 'm_{Wlv}',
-                'MIN' : 0,
-                'MAX' : 4500,
-                'NBINS' : 80
+            "Y" : {
+                "NAME" : "Y mass",
+                "TITLE" : "m_{Wlv}",
+                "BINS" : [50,100,150,200,250,300,350,400,450,500,600,700,800,900,1000,1100,1300,1500,1700,1900,2100,2300,2500],
+                "SIGSTART": 500,
+                "SIGEND": 1500
             }
         }
-    }
+    },
+    "OPTIONS": {
+        "plotTemplateComparisons": true,
+        "plotPrefitSigInFitB": true,
+        "plotUncerts": false,
+        "plotTitles": false,
+        "year": 1,
+        "comment": "the plotEvtsPerUnit option is due to the fact that our binning changes for both X and Y, so this rescales bins that are wider to account for this fact. I.e. If binning goes [100,200,300,500,1000], then the bins are of width 100, 100, 200, 500 GeV and the wider bins will contain more events. So to account for this, considering the selection histos were binned at 100GeV, this scales the wider bins to display them with the proper count as if they were only 100GeV wide",
+        "plotEvtsPerUnit": false
+  }
 }
 
 
