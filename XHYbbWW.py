@@ -149,7 +149,7 @@ def test_fit(SRorCR, signal, tf='', extra='--robustHesse 1'):
                 MY : 75, 100, 125, 175, 200, 250, 350, 450, 500 GeV
         tf [str] = 0x0, 0x1, 1x0, 1x1, 1x2, 2x2
     '''
-    assert SRorCR == 'CR'
+    assert SRorCR == 'ttCR'
     working_area = 'XHYfits_{}'.format(SRorCR)
 
     # might have to change this to the line below (uncommented) but I think this first line should work.
@@ -158,7 +158,7 @@ def test_fit(SRorCR, signal, tf='', extra='--robustHesse 1'):
 
     # create ledger, make an area for it with card
     subset = twoD.ledger.select(_select_signal, 'XHY-{}'.format(signal), tf)
-    twoD.MakeCard(subset, 'TprimeB-{}-{}_area'.format(signal, tf))
+    twoD.MakeCard(subset, 'XHY-{}-{}_area'.format(signal, tf))
     # perform fit
     twoD.MLfit('XHY-{}-{}_area'.format(signal,tf),rMin=-1,rMax=20,verbosity=1,extra=extra)
 
@@ -185,7 +185,7 @@ def _gof_for_FTest(twoD, subtag, card_or_w='card.txt'):
         gof_data_cmd = ' '.join(gof_data_cmd)
         execute_cmd(gof_data_cmd)
 
-def test_FTest(poly1, poly2, SRorCR='CR', signal='XHY-4000-2500'):
+def test_FTest(poly1, poly2, SRorCR='CR', signal='XHY-2000-1000'):
     '''
     Perform an F-test using existing working areas
     '''
@@ -307,8 +307,8 @@ def test_GoF_plot(SRorCR, signal, tf=''):
     plot.plot_gof('XHYfits_'+SRorCR,'{}-{}_area'.format(signame,tf), condor=False)
 
 if __name__ == "__main__":
-    test_make('CR')
-    test_fit('CR','4000-2500')
-    test_plot('CR','4000-2500')
-    test_GoF('CR','4000-2500')
-    test_GoF_plot('CR','4000-2500')
+    test_make('ttCR')
+    test_fit('ttCR','2000-1000')
+    test_plot('ttCR','2000-1000')
+    test_GoF('ttCR','2000-1000')
+    test_GoF_plot('ttCR','2000-1000')

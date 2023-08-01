@@ -188,7 +188,7 @@
         }
     },
     "OPTIONS": {
-        "plotTemplateComparisons": true,
+        "plotTemplateComparisons": false,
         "plotPrefitSigInFitB": true,
         "plotUncerts": false,
         "plotTitles": false,
