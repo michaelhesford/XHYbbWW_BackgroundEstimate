@@ -2,8 +2,6 @@
     "NAME" : "XHYbbWW_semileptonic",
     "GLOBAL" : {
          "FILE" : "XHYbbWWselection_$process.root",
-         "FILE_UP" : "XHYbbWWselection_$process_$syst_up.root",
-         "FILE_DOWN" : "XHYbbWWselection_$process_$syst_down.root",
          "HIST" : "MXvMY_$region__nominal",
          "HIST_UP" : "MXvMY_$region__$syst_up",
          "HIST_DOWN" : "MXvMY_$region__$syst_down",
@@ -20,88 +18,40 @@
             "TITLE" : "Data",
             "LOC" : "path/FILE:HIST"
         },
-        "ttbar-allhad_16" : {
-            "SYSTEMATICS" : ["lumi","pileup","prefire","jer","jes","jmr","jms"],
+        "ttbar-allhad" : {
+            "SYSTEMATICS" : ["lumi","pileup_16","pileup_16APV","pileup_18","prefire_16","prefire_16APV","jer_16","jer_16APV","jer_18","jes_16","jes_16APV","jes_18","jmr_16","jmr_16APV","jmr_18","jms_16","jms_16APV","jms_18"],
             "SCALE" : 1.0,
             "COLOR" : 1,
             "TYPE" : "BKG",
             "TITLE" : "hadronic t#bar{t}",
             "LOC" : "path/FILE:HIST"
         },
-        "ttbar-allhad_16APV" : {
-            "SYSTEMATICS" : ["lumi","pileup","prefire","jer","jes","jmr","jms"],
-            "SCALE" : 1.0,
-            "COLOR" : 1,
-            "TYPE" : "BKG",
-            "TITLE" : "hadronic t#bar{t}",
-            "LOC" : "path/FILE:HIST"
-        },
-        "ttbar-allhad_18" : {
-            "SYSTEMATICS" : ["lumi","pileup","jer","jes","jmr","jms"],
-            "SCALE" : 1.0,
-            "COLOR" : 1,
-            "TYPE" : "BKG",
-            "TITLE" : "hadronic t#bar{t}",
-            "LOC" : "path/FILE:HIST"
-        },
-        "ttbar-semilep_16" : {
-            "SYSTEMATICS" : ["lumi","pileup","prefire","jer","jes","jmr","jms"],
+        "ttbar-semilep" : {
+            "SYSTEMATICS" : ["lumi","pileup_16","pileup_16APV","pileup_17","pileup_18","prefire_16","prefire_16APV","prefire_17","jer_16","jer_16APV","jer_17","jer_18","jes_16","jes_16APV","jes_17","jes_18","jmr_16","jmr_16APV","jmr_17","jmr_18","jms_16","jms_16APV","jms_17","jms_18"],
             "SCALE" : 1.0,
             "COLOR" : 1,
             "TYPE" : "BKG",
             "TITLE" : "semileptonic t#bar{t}",
             "LOC" : "path/FILE:HIST"
         },
-        "ttbar-semilep_16APV" : {
-            "SYSTEMATICS" : ["lumi","pileup","prefire","jer","jes","jmr","jms"],
+        "WWto1L1Nu2Q" : {
+            "SYSTEMATICS" : ["lumi","pileup_16","pileup_16APV","pileup_17","pileup_18","prefire_16","prefire_16APV","prefire_17","jer_16","jer_16APV","jer_17","jer_18","jes_16","jes_16APV","jes_17","jes_18","jmr_16","jmr_16APV","jmr_17","jmr_18","jms_16","jms_16APV","jms_17","jms_18"],
             "SCALE" : 1.0,
             "COLOR" : 1,
             "TYPE" : "BKG",
-            "TITLE" : "semileptonic t#bar{t}",
+            "TITLE" : "semileptonic WW",
             "LOC" : "path/FILE:HIST"
         },
-        "ttbar-semilep_17" : {
-            "SYSTEMATICS" : ["lumi","pileup","prefire","jer","jes","jmr","jms"],
+        "WZto1L1Nu2Q" : {
+            "SYSTEMATICS" : ["lumi","pileup_16","pileup_16APV","pileup_17","pileup_18","prefire_16","prefire_16APV","prefire_17","jer_16","jer_16APV","jer_17","jer_18","jes_16","jes_16APV","jes_17","jes_18","jmr_16","jmr_16APV","jmr_17","jmr_18","jms_16","jms_16APV","jms_17","jms_18"],
             "SCALE" : 1.0,
             "COLOR" : 1,
             "TYPE" : "BKG",
-            "TITLE" : "semileptonic t#bar{t}",
+            "TITLE" : "semileptonic WZ",
             "LOC" : "path/FILE:HIST"
         },
-        "ttbar-semilep_18" : {
-            "SYSTEMATICS" : ["lumi","pileup","jer","jes","jmr","jms"],
-            "SCALE" : 1.0,
-            "COLOR" : 1,
-            "TYPE" : "BKG",
-            "TITLE" : "semileptonic t#bar{t}",
-            "LOC" : "path/FILE:HIST"
-        },
-        "SIGNAME_16" : {
-            "SYSTEMATICS" : ["lumi","pileup","prefire","jer","jes","jmr","jms"],
-            "SCALE" : 1.0,
-            "COLOR" : 1,
-            "TYPE" : "SIGNAL",
-            "TITLE" : "SIGNAME",
-            "LOC" : "path/FILE:HIST"
-        },
-        "SIGNAME_16APV" : {
-            "SYSTEMATICS" : ["lumi","pileup","prefire","jer","jes","jmr","jms"],
-            "SCALE" : 1.0,
-            "COLOR" : 1,
-            "TYPE" : "SIGNAL",
-            "TITLE" : "SIGNAME",
-            "LOC" : "path/FILE:HIST"
-        },
-        "SIGNAME_17" : {
-            "SYSTEMATICS" : ["lumi","pileup","prefire","jer","jes","jmr","jms"],
-            "SCALE" : 1.0,
-            "COLOR" : 1,
-            "TYPE" : "SIGNAL",
-            "TITLE" : "SIGNAME",
-            "LOC" : "path/FILE:HIST"
-        },
-        "SIGNAME_18" : {
-            "SYSTEMATICS" : ["lumi","pileup","jer","jes","jmr","jms"],
+        "SIGNAME" : {
+            "SYSTEMATICS" : ["lumi","pileup_16","pileup_16APV","pileup_17","pileup_18","prefire_16","prefire_16APV","prefire_17","jer_16","jer_16APV","jer_17","jer_18","jes_16","jes_16APV","jes_17","jes_18","jmr_16","jmr_16APV","jmr_17","jmr_18","jms_16","jms_16APV","jms_17","jms_18"],
             "SCALE" : 1.0,
             "COLOR" : 1,
             "TYPE" : "SIGNAL",
@@ -111,19 +61,19 @@
     },                                  
     "REGIONS" : {
         "pass_SR" : {
-            "PROCESSES" : ["SIGNAME","ttbar-allhad_16","ttbar-allhad_16APV","ttbar-allhad_18","ttbar-semilep_16","ttbar-semilep_16APV","ttbar-semilep_17","ttbar-semilep_18"],
+            "PROCESSES" : ["SIGNAME","ttbar-allhad","ttbar-semilep","WWto1L1Nu2Q","WZto1L1Nu2Q"],
             "BINNING" : "default"
         },
         "pass_ttCR" : {
-            "PROCESSES" : ["SIGNAME","ttbar-allhad_16","ttbar-allhad_16APV","ttbar-allhad_18","ttbar-semilep_16","ttbar-semilep_16APV","ttbar-semilep_17","ttbar-semilep_18"],
+            "PROCESSES" : ["SIGNAME","ttbar-allhad","ttbar-semilep","WWto1L1Nu2Q","WZto1L1Nu2Q"],
             "BINNING" : "default"
         },
         "fail_SR" : {
-            "PROCESSES" : ["SIGNAME","ttbar-allhad_16","ttbar-allhad_16APV","ttbar-allhad_18","ttbar-semilep_16","ttbar-semilep_16APV","ttbar-semilep_17","ttbar-semilep_18"],
+            "PROCESSES" : ["SIGNAME","ttbar-allhad","ttbar-semilep","WWto1L1Nu2Q","WZto1L1Nu2Q"],
             "BINNING" : "default"
         },
         "fail_ttCR" : {
-            "PROCESSES" : ["SIGNAME","ttbar-allhad_16","ttbar-allhad_16APV","ttbar-allhad_18","ttbar-semilep_16","ttbar-semilep_16APV","ttbar-semilep_17","ttbar-semilep_18"],
+            "PROCESSES" : ["SIGNAME","ttbar-allhad","ttbar-semilep","WWto1L1Nu2Q","WZto1L1Nu2Q"],
             "BINNING" : "default"
         }
     },
@@ -132,40 +82,142 @@
             "CODE" : 0,
             "VAL" : 1.016
         },
-        "pileup" : {
-            "ALIAS" : "Pileup",
+        "pileup_16" : {
+            "ALIAS" : "Pileup_16",
             "UP" : "path/FILE:HIST_UP",
             "DOWN" : "path/FILE:HIST_DOWN",
             "SIGMA" : 1.0
         },
-        "prefire" : {
-            "ALIAS" : "L1PreFiringWeight",
+        "pileup_16APV" : {
+            "ALIAS" : "Pileup_16APV",
             "UP" : "path/FILE:HIST_UP",
             "DOWN" : "path/FILE:HIST_DOWN",
             "SIGMA" : 1.0
         },
-        "jes" : {
-            "ALIAS" : "JES",
-            "UP" : "path/FILE_UP:HIST",
-            "DOWN" : "path/FILE_DOWN:HIST",
+        "pileup_17" : {
+            "ALIAS" : "Pileup_17",
+            "UP" : "path/FILE:HIST_UP",
+            "DOWN" : "path/FILE:HIST_DOWN",
             "SIGMA" : 1.0
         },
-        "jer" : {
-            "ALIAS" : "JER",
-            "UP" : "path/FILE_UP:HIST",
-            "DOWN" : "path/FILE_DOWN:HIST",
+        "pileup_18" : {
+            "ALIAS" : "Pileup_18",
+            "UP" : "path/FILE:HIST_UP",
+            "DOWN" : "path/FILE:HIST_DOWN",
             "SIGMA" : 1.0
         },
-        "jms" : {
-            "ALIAS" : "JMS",
-            "UP" : "path/FILE_UP:HIST",
-            "DOWN" : "path/FILE_DOWN:HIST",
+        "prefire_16" : {
+            "ALIAS" : "L1PreFiringWeight_16",
+            "UP" : "path/FILE:HIST_UP",
+            "DOWN" : "path/FILE:HIST_DOWN",
             "SIGMA" : 1.0
         },
-        "jmr" : {
-            "ALIAS" : "JMR",
-            "UP" : "path/FILE_UP:HIST",
-            "DOWN" : "path/FILE_DOWN:HIST",
+        "prefire_16APV" : {
+            "ALIAS" : "L1PreFiringWeight_16APV",
+            "UP" : "path/FILE:HIST_UP",
+            "DOWN" : "path/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+        "prefire_17" : {
+            "ALIAS" : "L1PreFiringWeight_17",
+            "UP" : "path/FILE:HIST_UP",
+            "DOWN" : "path/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+        "jes_16" : {
+            "ALIAS" : "JES_16",
+            "UP" : "path/FILE:HIST_UP",
+            "DOWN" : "path/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+        "jes_16APV" : {
+            "ALIAS" : "JES_16APV",
+            "UP" : "path/FILE:HIST_UP",
+            "DOWN" : "path/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+        "jes_17" : {
+            "ALIAS" : "JES_17",
+            "UP" : "path/FILE:HIST_UP",
+            "DOWN" : "path/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+        "jes_18" : {
+            "ALIAS" : "JES_18",
+            "UP" : "path/FILE:HIST_UP",
+            "DOWN" : "path/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+        "jer_16" : {
+            "ALIAS" : "JER_16",
+            "UP" : "path/FILE:HIST_UP",
+            "DOWN" : "path/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+        "jer_16APV" : {
+            "ALIAS" : "JER_16APV",
+            "UP" : "path/FILE:HIST_UP",
+            "DOWN" : "path/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+        "jer_17" : {
+            "ALIAS" : "JER_17",
+            "UP" : "path/FILE:HIST_UP",
+            "DOWN" : "path/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+        "jer_18" : {
+            "ALIAS" : "JER_18",
+            "UP" : "path/FILE:HIST_UP",
+            "DOWN" : "path/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+        "jms_16" : {
+            "ALIAS" : "JMS_16",
+            "UP" : "path/FILE:HIST_UP",
+            "DOWN" : "path/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+        "jms_16APV" : {
+            "ALIAS" : "JMS_16APV",
+            "UP" : "path/FILE:HIST_UP",
+            "DOWN" : "path/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+        "jms_17" : {
+            "ALIAS" : "JMS_17",
+            "UP" : "path/FILE:HIST_UP",
+            "DOWN" : "path/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+        "jms_18" : {
+            "ALIAS" : "JMS_18",
+            "UP" : "path/FILE:HIST_UP",
+            "DOWN" : "path/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+        "jmr_16" : {
+            "ALIAS" : "JMR_16",
+            "UP" : "path/FILE:HIST_UP",
+            "DOWN" : "path/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+        "jmr_16APV" : {
+            "ALIAS" : "JMR_16APV",
+            "UP" : "path/FILE:HIST_UP",
+            "DOWN" : "path/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+        "jmr_17" : {
+            "ALIAS" : "JMR_17",
+            "UP" : "path/FILE:HIST_UP",
+            "DOWN" : "path/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+        "jmr_18" : {
+            "ALIAS" : "JMR_18",
+            "UP" : "path/FILE:HIST_UP",
+            "DOWN" : "path/FILE:HIST_DOWN",
             "SIGMA" : 1.0
         }
     },
@@ -194,7 +246,7 @@
         "plotTitles": false,
         "year": 1,
         "comment": "the plotEvtsPerUnit option is due to the fact that our binning changes for both X and Y, so this rescales bins that are wider to account for this fact. I.e. If binning goes [100,200,300,500,1000], then the bins are of width 100, 100, 200, 500 GeV and the wider bins will contain more events. So to account for this, considering the selection histos were binned at 100GeV, this scales the wider bins to display them with the proper count as if they were only 100GeV wide",
-        "plotEvtsPerUnit": false
+        "plotEvtsPerUnit": true
   }
 }
 
