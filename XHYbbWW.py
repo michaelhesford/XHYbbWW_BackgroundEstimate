@@ -108,7 +108,7 @@ def test_make(SRorCR):
     qcd_hists = twoD.InitQCDHists() #Data - Background histograms
 
     # this loop only runs once, since the only regions are CR_fail, CR_pass
-    for f,p in [_get_other_region_names(r) for r in twoD.ledger.GetRegions() if 'fail' in r]:
+    for p,f in [_get_other_region_names(r) for r in twoD.ledger.GetRegions() if 'pass' in r]:
         binning_f, _ = twoD.GetBinningFor(f)
         fail_name = 'Background_'+f
         qcd_f = BinnedDistribution(
@@ -117,18 +117,18 @@ def test_make(SRorCR):
 	)
         twoD.AddAlphaObj('Background',f,qcd_f)
 
-        '''
-        # 1x0 TF to go between F->P
+        ''' 
+        # 2x1 TF to go between F->P
         qcd_rpf = ParametricFunction(
             fail_name.replace('fail','rpf'),
-            binning_f, _rpf_options['1x0']['form'],
-            constraints=_rpf_options['1x0']['constraints']
+            binning_f, _rpf_options['2x1']['form'],
+            constraints=_rpf_options['2x1']['constraints']
         )
         # qcd_p = qcd_f*rpf
         qcd_p = qcd_f.Multiply(fail_name.replace('fail','pass'),qcd_rpf) 
         twoD.AddAlphaObj('Background',p,qcd_p,title='Background')
         '''
-
+        
         for opt_name, opt in _rpf_options.items():
             qcd_rpf = ParametricFunction(
                 fail_name.replace('fail','rpf')+'_'+opt_name,
@@ -138,7 +138,7 @@ def test_make(SRorCR):
             # qcd_p = qcd_f*rpf
             qcd_p = qcd_f.Multiply(fail_name.replace('fail','pass')+'_'+opt_name, qcd_rpf)
             twoD.AddAlphaObj('Background_'+opt_name,p,qcd_p,title='Background')
-
+        
     twoD.Save()
 
 def test_fit(SRorCR, signal, tf='', extra='--robustHesse 1'):
@@ -160,15 +160,14 @@ def test_fit(SRorCR, signal, tf='', extra='--robustHesse 1'):
     subset = twoD.ledger.select(_select_signal, 'XHY-{}'.format(signal), tf)
     twoD.MakeCard(subset, 'XHY-{}-{}_area'.format(signal, tf))
     # perform fit
-    twoD.MLfit('XHY-{}-{}_area'.format(signal,tf),rMin=-1,rMax=20,verbosity=1,extra=extra)
+    twoD.MLfit('XHY-{}-{}_area'.format(signal,tf),rMin=-1,rMax=20,verbosity=2,extra=extra)
 
-def test_plot(SRorCR, signal, tf=''):
+def test_plot(SRorCR, signal, tf='',prefit=False):
     working_area = 'XHYfits_{}'.format(SRorCR)
     twoD = TwoDAlphabet(working_area, '{}/runConfig.json'.format(working_area), loadPrevious=True)
-    #twoD = TwoDAlphabet(working_area, 'TH.json', loadPrevious=True)
 
     subset = twoD.ledger.select(_select_signal, 'XHY-{}'.format(signal), tf)
-    twoD.StdPlots('XHY-{}-{}_area'.format(signal,tf), subset)
+    twoD.StdPlots('XHY-{}-{}_area'.format(signal,tf), subset, prefit)
 
 def _gof_for_FTest(twoD, subtag, card_or_w='card.txt'):
 
@@ -185,30 +184,30 @@ def _gof_for_FTest(twoD, subtag, card_or_w='card.txt'):
         gof_data_cmd = ' '.join(gof_data_cmd)
         execute_cmd(gof_data_cmd)
 
-def test_FTest(poly1, poly2, SRorCR='CR', signal='XHY-2000-1000'):
+def test_FTest(poly1, poly2, SRorCR='ttCR', signal='2000-1000'):
     '''
     Perform an F-test using existing working areas
     '''
     assert SRorCR == 'CR'
-    working_area = 'THfits_{}'.format(SRorCR)
+    working_area = 'XHYfits_{}'.format(SRorCR)
     
     twoD = TwoDAlphabet(working_area, '{}/runConfig.json'.format(working_area), loadPrevious=True)
     binning = twoD.binnings['default']
     nBins = (len(binning.xbinList)-1)*(len(binning.ybinList)-1)
     
     # Get number of RPF params and run GoF for poly1
-    params1 = twoD.ledger.select(_select_signal, 'TprimeB-{}'.format(signal), poly1).alphaParams
+    params1 = twoD.ledger.select(_select_signal, 'XHY-{}'.format(signal), poly1).alphaParams
     rpfSet1 = params1[params1["name"].str.contains("rpf")]
     nRpfs1  = len(rpfSet1.index)
-    _gof_for_FTest(twoD, 'TprimeB-1800-125-{}_area'.format(poly1), card_or_w='card.txt')
-    gofFile1 = working_area+'/TprimeB-1800-125-{}_area/higgsCombine_gof_data.GoodnessOfFit.mH120.root'.format(poly1)
+    _gof_for_FTest(twoD, 'XHY-{}-{}_area'.format(signal,poly1), card_or_w='card.txt')
+    gofFile1 = working_area+'/XHY-{}-{}_area/higgsCombine_gof_data.GoodnessOfFit.mH120.root'.format(signal,poly1)
 
     # Get number of RPF params and run GoF for poly2
-    params2 = twoD.ledger.select(_select_signal, 'TprimeB-{}'.format(signal), poly2).alphaParams
+    params2 = twoD.ledger.select(_select_signal, 'XHY-{}'.format(signal), poly2).alphaParams
     rpfSet2 = params2[params2["name"].str.contains("rpf")]
     nRpfs2  = len(rpfSet2.index)
-    _gof_for_FTest(twoD, 'TprimeB-1800-125-{}_area'.format(poly2), card_or_w='card.txt')
-    gofFile2 = working_area+'/TprimeB-1800-125-{}_area/higgsCombine_gof_data.GoodnessOfFit.mH120.root'.format(poly2)
+    _gof_for_FTest(twoD, 'XHY-{}-{}_area'.format(signal,poly2), card_or_w='card.txt')
+    gofFile2 = working_area+'/XHY-{}-{}_area/higgsCombine_gof_data.GoodnessOfFit.mH120.root'.format(signal,poly2)
 
     base_fstat = FstatCalc(gofFile1,gofFile2,nRpfs1,nRpfs2,nBins)
     print(base_fstat)
@@ -281,7 +280,7 @@ def test_FTest(poly1, poly2, SRorCR='CR', signal='XHY-2000-1000'):
     plot_FTest(base_fstat,nRpfs1,nRpfs2,nBins)
 
 def test_GoF(SRorCR, signal, tf='', condor=False):
-    assert SRorCR == 'CR'
+    assert SRorCR == 'ttCR'
     working_area = 'XHYfits_{}'.format(SRorCR)
     twoD = TwoDAlphabet(working_area, '{}/runConfig.json'.format(working_area), loadPrevious=True)
     signame = 'XHY-'+signal
@@ -308,7 +307,8 @@ def test_GoF_plot(SRorCR, signal, tf=''):
 
 if __name__ == "__main__":
     test_make('ttCR')
-    test_fit('ttCR','2000-1000')
-    test_plot('ttCR','2000-1000')
-    test_GoF('ttCR','2000-1000')
-    test_GoF_plot('ttCR','2000-1000')
+    test_fit('ttCR','1000-500','2x3')
+    test_plot('ttCR','1000-500','2x3',prefit=True)
+    test_plot('ttCR','1000-500','2x3',prefit=False)
+    test_GoF('ttCR','1000-500','2x3')
+    test_GoF_plot('ttCR','1000-500','2x3')
