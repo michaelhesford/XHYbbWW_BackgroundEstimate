@@ -5,8 +5,8 @@
          "HIST" : "MXvMY_$region__nominal",
          "HIST_UP" : "MXvMY_$region__$syst_up",
          "HIST_DOWN" : "MXvMY_$region__$syst_down",
-         "path" : "/uscms/home/mhesford/nobackup/XHYbbWW/CMSSW_11_1_4/src/semileptonic/selection/",
-         "SIGNAME" : ["XHY-2000-1000"]
+         "path" : "/uscms/home/mhesford/nobackup/XHYbbWW/CMSSW_11_1_4/src/semileptonic/selection",
+         "SIGNAME" : ["XHY-1000-500"]
     },
     "PROCESSES" : {
         "data_obs" : {
@@ -18,26 +18,18 @@
             "TITLE" : "Data",
             "LOC" : "path/FILE:HIST"
         },
-        "ttbar-allhad" : {
-            "SYSTEMATICS" : ["lumi","pileup_16","pileup_16APV","pileup_18","prefire_16","prefire_16APV","jer_16","jer_16APV","jer_18","jes_16","jes_16APV","jes_18","jmr_16","jmr_16APV","jmr_18","jms_16","jms_16APV","jms_18"],
-            "SCALE" : 1.0,
-            "COLOR" : 1,
-            "TYPE" : "BKG",
-            "TITLE" : "hadronic t#bar{t}",
-            "LOC" : "path/FILE:HIST"
-        },
-        "ttbar-semilep" : {
+        "ttbar" : {
             "SYSTEMATICS" : ["lumi","pileup_16","pileup_16APV","pileup_17","pileup_18","prefire_16","prefire_16APV","prefire_17","jer_16","jer_16APV","jer_17","jer_18","jes_16","jes_16APV","jes_17","jes_18","jmr_16","jmr_16APV","jmr_17","jmr_18","jms_16","jms_16APV","jms_17","jms_18"],
             "SCALE" : 1.0,
-            "COLOR" : 1,
+            "COLOR" : 2,
             "TYPE" : "BKG",
-            "TITLE" : "semileptonic t#bar{t}",
+            "TITLE" : "t#bar{t}",
             "LOC" : "path/FILE:HIST"
         },
         "WWto1L1Nu2Q" : {
             "SYSTEMATICS" : ["lumi","pileup_16","pileup_16APV","pileup_17","pileup_18","prefire_16","prefire_16APV","prefire_17","jer_16","jer_16APV","jer_17","jer_18","jes_16","jes_16APV","jes_17","jes_18","jmr_16","jmr_16APV","jmr_17","jmr_18","jms_16","jms_16APV","jms_17","jms_18"],
             "SCALE" : 1.0,
-            "COLOR" : 1,
+            "COLOR" : 3,
             "TYPE" : "BKG",
             "TITLE" : "semileptonic WW",
             "LOC" : "path/FILE:HIST"
@@ -45,7 +37,7 @@
         "WZto1L1Nu2Q" : {
             "SYSTEMATICS" : ["lumi","pileup_16","pileup_16APV","pileup_17","pileup_18","prefire_16","prefire_16APV","prefire_17","jer_16","jer_16APV","jer_17","jer_18","jes_16","jes_16APV","jes_17","jes_18","jmr_16","jmr_16APV","jmr_17","jmr_18","jms_16","jms_16APV","jms_17","jms_18"],
             "SCALE" : 1.0,
-            "COLOR" : 1,
+            "COLOR" : 4,
             "TYPE" : "BKG",
             "TITLE" : "semileptonic WZ",
             "LOC" : "path/FILE:HIST"
@@ -60,20 +52,12 @@
         }
     },                                  
     "REGIONS" : {
-        "pass_SR" : {
-            "PROCESSES" : ["SIGNAME","ttbar-allhad","ttbar-semilep","WWto1L1Nu2Q","WZto1L1Nu2Q"],
-            "BINNING" : "default"
-        },
         "pass_ttCR" : {
-            "PROCESSES" : ["SIGNAME","ttbar-allhad","ttbar-semilep","WWto1L1Nu2Q","WZto1L1Nu2Q"],
-            "BINNING" : "default"
-        },
-        "fail_SR" : {
-            "PROCESSES" : ["SIGNAME","ttbar-allhad","ttbar-semilep","WWto1L1Nu2Q","WZto1L1Nu2Q"],
+            "PROCESSES" : ["SIGNAME","ttbar","WWto1L1Nu2Q","WZto1L1Nu2Q"],
             "BINNING" : "default"
         },
         "fail_ttCR" : {
-            "PROCESSES" : ["SIGNAME","ttbar-allhad","ttbar-semilep","WWto1L1Nu2Q","WZto1L1Nu2Q"],
+            "PROCESSES" : ["SIGNAME","ttbar","WWto1L1Nu2Q","WZto1L1Nu2Q"],
             "BINNING" : "default"
         }
     },
@@ -226,16 +210,16 @@
             "X" : {
                 "NAME" : "X mass",
                 "TITLE" : "m_{HWlv}",
-                "BINS" : [500,550,600,650,700,750,800,850,900,950,1000,1050,1100,1150,1200,1250,1300,1350,1400,1450,1550,1650,1750,1850,1950,2050,2200,2350,2500,3000,3500,4000,4500],
-                "SIGSTART": 1450,
-                "SIGEND": 2500
+                "BINS" : [600,900,1100,1300,1500,2000,4500],
+                "SIGSTART": 1100,
+                "SIGEND": 1300
             },
             "Y" : {
                 "NAME" : "Y mass",
                 "TITLE" : "m_{Wlv}",
-                "BINS" : [50,100,150,200,250,300,350,400,450,500,600,700,800,900,1000,1100,1300,1500,1700,1900,2100,2300,2500],
-                "SIGSTART": 500,
-                "SIGEND": 1500
+                "BINS" : [100,300,500,700,1000,2500],
+                "SIGSTART":300,
+                "SIGEND": 700
             }
         }
     },
