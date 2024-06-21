@@ -113,7 +113,7 @@ def test_make(SRorCR):
         fail_name = 'Background_'+f
         qcd_f = BinnedDistribution(
 	    fail_name, qcd_hists[f],
-	    binning_f, constant=False
+	    binning_f, twoD, constant=False
 	)
         twoD.AddAlphaObj('Background',f,qcd_f)
 
@@ -141,7 +141,7 @@ def test_make(SRorCR):
         
     twoD.Save()
 
-def test_fit(SRorCR, signal, tf='', extra='--robustHesse 1'):
+def test_fit(SRorCR, signal, tf='', MinStrat=0, extra='--robustHesse 1'):
     '''
         SRorCR = 'CR', 'SR'	(for now, only looking at CR)
         signal [str] = 'MX-MY'
@@ -154,13 +154,12 @@ def test_fit(SRorCR, signal, tf='', extra='--robustHesse 1'):
 
     # might have to change this to the line below (uncommented) but I think this first line should work.
     twoD = TwoDAlphabet(working_area, '{}/runConfig.json'.format(working_area), loadPrevious=True)
-    #twoD = TwoDAlphabet(working_area, 'TH.json', loadPrevious=True)
 
     # create ledger, make an area for it with card
     subset = twoD.ledger.select(_select_signal, 'XHY-{}'.format(signal), tf)
     twoD.MakeCard(subset, 'XHY-{}-{}_area'.format(signal, tf))
     # perform fit
-    twoD.MLfit('XHY-{}-{}_area'.format(signal,tf),rMin=-1,rMax=20,verbosity=2,extra=extra)
+    twoD.MLfit('XHY-{}-{}_area'.format(signal,tf),rMin=-1,rMax=20,verbosity=2,defMinStrat=MinStrat,extra=extra)
 
 def test_plot(SRorCR, signal, tf='',prefit=False):
     working_area = 'XHYfits_{}'.format(SRorCR)
@@ -227,7 +226,7 @@ def test_FTest(poly1, poly2, SRorCR='ttCR', signal='2000-1000'):
         fdist.SetParameter(2,ftest_nbins-ftest_p2)
 
         pval = fdist.Integral(0.0,base_fstat[0])
-        print 'P-value: %s'%pval
+        print('P-value: %s'%pval)
 
         c = TCanvas('c','c',800,600)    
         c.SetLeftMargin(0.12) 
@@ -301,14 +300,14 @@ def test_GoF(SRorCR, signal, tf='', condor=False):
 
 def test_GoF_plot(SRorCR, signal, tf=''):
     '''Plot the GoF in XHYfits_<SRorCR>/XHY-<signal>_area (condor=True indicates that condor jobs need to be unpacked)'''
-    assert SRorCR == 'CR'
+    assert SRorCR == 'ttCR'
     signame = 'XHY-'+signal
     plot.plot_gof('XHYfits_'+SRorCR,'{}-{}_area'.format(signame,tf), condor=False)
 
 if __name__ == "__main__":
     test_make('ttCR')
-    test_fit('ttCR','1000-500','2x3')
-    test_plot('ttCR','1000-500','2x3',prefit=True)
-    test_plot('ttCR','1000-500','2x3',prefit=False)
-    test_GoF('ttCR','1000-500','2x3')
-    test_GoF_plot('ttCR','1000-500','2x3')
+    test_fit('ttCR','1000-500','0x0',MinStrat=1,extra='--robustFit 1')
+    test_plot('ttCR','1000-500','0x0',prefit=True)
+    test_plot('ttCR','1000-500','0x0',prefit=False)
+    #test_GoF('ttCR','1000-500','0x0')
+    #test_GoF_plot('ttCR','1000-500','0x0')
