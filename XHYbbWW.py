@@ -31,8 +31,8 @@ def _select_signal(row, args):
 # NEED TO ADJUST THIS FUNCTION
 #------------------------------------------------------------------------------------------------------------
 def _load_CR_rpf(poly_order):
-    twoD_CRonly = TwoDAlphabet('THfits_CR','TH.json', loadPrevious=True)
-    params_to_set = twoD_CRonly.GetParamsOnMatch('rpf.*'+poly_order, 'MX_2000_MY_800_area', 'b')
+    twoD_CRonly = TwoDAlphabet('XHYfits_CR','XHYbbWW.json', loadPrevious=True)
+    params_to_set = twoD_CRonly.GetParamsOnMatch('rpf.*'+poly_order, 'XHY-1000-500_area', 'b')
     return {k:v['val'] for k,v in params_to_set.items()}
 #------------------------------------------------------------------------------------------------------------
 
@@ -46,9 +46,9 @@ def _generate_constraints(nparams):
     out = {}
     for i in range(nparams):
         if i == 0:
-            out[i] = {"MIN":0,"MAX":1}
+            out[i] = {"MIN":0,"MAX":2,"NOM":1}
         else:
-            out[i] = {"MIN":-5,"MAX":5}
+            out[i] = {"MIN":-100,"MAX":100,"NOM":0}
     return out
 
 _rpf_options = {
@@ -90,83 +90,82 @@ _rpf_options = {
     }
 }
 
-def test_make(SRorCR):
-    '''
-    Makes the workspace for ALL signals (all are included in the JSON config file)
-    '''
-    #I think I want to be doing fits simultaneously
-    # for now (t\phi) the SR is entirely blinded and we are doing fits in the CR only.
-    #assert SRorCR == 'CR'  
-
-    fr = {}
-    # by default config file looks for CR, so change if necessary (not relevant now, keep anyway)
-    #if SRorCR == 'SR':
-    #    fr['CR_pass'] = 'SR_pass'
-    #    fr['CR_loose'] = 'SR_loose'
+def test_make(workspace='',fr={}):
     
-    twoD = TwoDAlphabet('XHYfits_{}'.format(SRorCR), 'XHYbbWW.json', findreplace=fr, loadPrevious=False)
-    qcd_hists = twoD.InitQCDHists() #Data - Background histograms
+    twoD = TwoDAlphabet('{}fits'.format(workspace), 'XHYbbWW.json', findreplace=fr, loadPrevious=False)
 
-    # this loop only runs once, since the only regions are CR_fail, CR_pass
-    for p,f in [_get_other_region_names(r) for r in twoD.ledger.GetRegions() if 'pass' in r]:
-        binning_f, _ = twoD.GetBinningFor(f)
-        fail_name = 'Background_'+f
-        qcd_f = BinnedDistribution(
-	    fail_name, qcd_hists[f],
-	    binning_f, twoD, constant=False
-	)
-        twoD.AddAlphaObj('Background',f,qcd_f)
+    '''
+    qcd_hists = twoD.InitQCDHists()
 
-        ''' 
-        # 2x1 TF to go between F->P
-        qcd_rpf = ParametricFunction(
-            fail_name.replace('fail','rpf'),
-            binning_f, _rpf_options['2x1']['form'],
-            constraints=_rpf_options['2x1']['constraints']
+    binning, _ = twoD.GetBinningFor('SR_fail')
+
+    # Set up QCD estimate in SR_fail
+    fail_name = 'Background_SR_fail'
+    qcd_f = BinnedDistribution(fail_name, qcd_hists['SR_fail'], binning, constant=False)
+    twoD.AddAlphaObj('Background_SR_fail', 'SR_fail', qcd_f, title='QCD')
+
+    # set up QCD estimate in ttbarCR_fail
+    ttfail_name = 'Background_ttbarCR_fail'
+    qcd_ftt = BinnedDistribution(ttfail_name, qcd_hists['ttbarCR_fail'], binning, constant=False)
+    twoD.AddAlphaObj('Background_ttbarCR_fail','ttbarCR_fail', qcd_ftt, title='QCD')
+
+    # Try all TFs for the SR and ttbarCR
+    for opt_name, opt in _rpf_options.items():
+        # TF for SR_fail -> SR_pass
+        qcd_rpf_SR = ParametricFunction(
+            'Background_SR_rpf_%s'%opt_name, binning, opt['form'],
+            constraints = opt['constraints']
         )
-        # qcd_p = qcd_f*rpf
-        qcd_p = qcd_f.Multiply(fail_name.replace('fail','pass'),qcd_rpf) 
-        twoD.AddAlphaObj('Background',p,qcd_p,title='Background')
-        '''
-        
-        for opt_name, opt in _rpf_options.items():
-            qcd_rpf = ParametricFunction(
-                fail_name.replace('fail','rpf')+'_'+opt_name,
-                binning_f, opt['form'],
-                constraints=opt['constraints']
-            )
-            # qcd_p = qcd_f*rpf
-            qcd_p = qcd_f.Multiply(fail_name.replace('fail','pass')+'_'+opt_name, qcd_rpf)
-            twoD.AddAlphaObj('Background_'+opt_name,p,qcd_p,title='Background')
-        
+        # TF for ttbarCR_fail -> ttbarCR_pass
+        qcd_rpf_ttbarCR = ParametricFunction(
+            'Background_ttbarCR_rpf_%s'%opt_name, binning, opt['form'],
+            constraints = opt['constraints']
+        )
+
+        # QCD estimate in SR pass
+        qcd_p = qcd_f.Multiply(fail_name.replace('fail','pass')+'_'+opt_name, qcd_rpf_SR)
+        twoD.AddAlphaObj('Background_SR_pass_%s'%opt_name, 'SR_pass', qcd_p, title='QCD')
+        # QCD estimate in ttbarCR pass
+        qcd_ptt = qcd_ftt.Multiply(ttfail_name.replace('fail','pass')+'_'+opt_name, qcd_rpf_ttbarCR)
+        twoD.AddAlphaObj('Background_ttbarCR_pass_%s'%opt_name, 'ttbarCR_pass', qcd_ptt, title='QCD')
+    '''
+
     twoD.Save()
 
-def test_fit(SRorCR, signal, tf='', MinStrat=0, extra='--robustHesse 1'):
-    '''
-        SRorCR = 'CR', 'SR'	(for now, only looking at CR)
-        signal [str] = 'MX-MY'
-                MX : 800-1800 GeV, 100 GeV intervals UPDATE THIS
-                MY : 75, 100, 125, 175, 200, 250, 350, 450, 500 GeV
-        tf [str] = 0x0, 0x1, 1x0, 1x1, 1x2, 2x2
-    '''
-    assert SRorCR == 'ttCR'
-    working_area = 'XHYfits_{}'.format(SRorCR)
+def test_fit(workspace='', signal='', SRtf='', CRtf='', defMinStrat=0, extra='--robustHesse 1', rMin=-1, rMax=10, verbosity=2):
 
-    # might have to change this to the line below (uncommented) but I think this first line should work.
+    working_area = '{}fits'.format(workspace)
     twoD = TwoDAlphabet(working_area, '{}/runConfig.json'.format(working_area), loadPrevious=True)
 
     # create ledger, make an area for it with card
-    subset = twoD.ledger.select(_select_signal, 'XHY-{}'.format(signal), tf)
-    twoD.MakeCard(subset, 'XHY-{}-{}_area'.format(signal, tf))
+    #subset = twoD.ledger.select(_select_signal, 'XHY-{}'.format(signal), SRtf, CRtf)
+    subset = twoD.ledger
+    if SRtf == '' and CRtf == '':
+        area = 'XHY-{}_area'.format(signal)
+    else:
+        area = 'XHY-{}-SR{}-CR{}_area'.format(signal,SRtf,CRtf)
+    twoD.MakeCard(subset, area)
     # perform fit
-    twoD.MLfit('XHY-{}-{}_area'.format(signal,tf),rMin=-1,rMax=20,verbosity=2,defMinStrat=MinStrat,extra=extra)
+    twoD.MLfit(area,rMin=rMin,rMax=rMax,verbosity=verbosity,defMinStrat=defMinStrat,extra=extra)
 
-def test_plot(SRorCR, signal, tf='',prefit=False):
-    working_area = 'XHYfits_{}'.format(SRorCR)
+def test_plot(workspace='', signal='', SRtf='', CRtf=''):
+    working_area = '{}fits'.format(workspace)
     twoD = TwoDAlphabet(working_area, '{}/runConfig.json'.format(working_area), loadPrevious=True)
+    #subset = twoD.ledger.select(_select_signal, 'XHY-{}'.format(signal), SRtf, CRtf)
+    subset = twoD.ledger
+    # customize the plots to include region definitions
+    subtitles = {
+        "pass_ttCR": r"$ParticleNetMD_{HvsQCD}$ Loose;$ParticleNetMD_{WvsQCD}$ Pass",
+        "pass_SR": r"$ParticleNetMD_{HvsQCD}$ Pass;$ParticleNetMD_{WvsQCD}$ Pass",
+    }
 
-    subset = twoD.ledger.select(_select_signal, 'XHY-{}'.format(signal), tf)
-    twoD.StdPlots('XHY-{}-{}_area'.format(signal,tf), subset, prefit)
+    if SRtf == '' and CRtf == '':
+        area = 'XHY-{}_area'.format(signal)
+    else:
+        area = 'XHY-{}-SR{}-CR{}_area'.format(signal,SRtf,CRtf)
+
+    twoD.StdPlots(area, subset, subtitles=subtitles, prefit=False)
+    twoD.StdPlots(area, subset, subtitles=subtitles, prefit=True)
 
 def _gof_for_FTest(twoD, subtag, card_or_w='card.txt'):
 
@@ -174,7 +173,7 @@ def _gof_for_FTest(twoD, subtag, card_or_w='card.txt'):
     
     with cd(run_dir):
         gof_data_cmd = [
-            'combine -M GoodnessOfFit',
+            'combine -M GxxoodnessOfFit',
             '-d '+card_or_w,
             '--algo=saturated',
             '-n _gof_data'
@@ -187,7 +186,6 @@ def test_FTest(poly1, poly2, SRorCR='ttCR', signal='2000-1000'):
     '''
     Perform an F-test using existing working areas
     '''
-    assert SRorCR == 'CR'
     working_area = 'XHYfits_{}'.format(SRorCR)
     
     twoD = TwoDAlphabet(working_area, '{}/runConfig.json'.format(working_area), loadPrevious=True)
@@ -278,36 +276,179 @@ def test_FTest(poly1, poly2, SRorCR='ttCR', signal='2000-1000'):
 
     plot_FTest(base_fstat,nRpfs1,nRpfs2,nBins)
 
-def test_GoF(SRorCR, signal, tf='', condor=False):
-    assert SRorCR == 'ttCR'
-    working_area = 'XHYfits_{}'.format(SRorCR)
+def test_GoF(workspace, signal, SRtf='', CRtf='', condor=False, extra='', appendName=''):
+    working_area = '{}fits'.format(workspace)
     twoD = TwoDAlphabet(working_area, '{}/runConfig.json'.format(working_area), loadPrevious=True)
     signame = 'XHY-'+signal
-    if not os.path.exists(twoD.tag+'/'+signame+'-{}_area/card.txt'.format(tf)):
+
+    if SRtf == '' and CRtf == '':
+        area = 'XHY-{}_area'.format(signal)
+    else:
+        area = 'XHY-{}-SR{}-CR{}_area'.format(signal,SRtf,CRtf)
+
+    if not os.path.exists(twoD.tag+'/'+area+'/card.txt'):
         print('{}/{}-area/card.txt does not exist, making card'.format(twoD.tag,signame))
-        subset = twoD.ledger.select(_select_signal, signame, tf)
-        twoD.MakeCard(subset, signame+'_area')
+        subset = twoD.ledger
+        #subset = twoD.ledger.select(_select_signal, signame, SRtf, CRtf)
+        twoD.MakeCard(subset, area)
     if condor == False:
         twoD.GoodnessOfFit(
-            signame+'-{}_area'.format(tf), ntoys=500, freezeSignal=0,
-            condor=False
+            area, ntoys=500, freezeSignal=0,
+            condor=False, card_or_w='initialFitWorkspace.root', extra=extra, 
+            makeEnv=True
         )
     else:
         twoD.GoodnessOfFit(
-            signame+'-{}_area'.format(tf), ntoys=500, freezeSignal=0,
-            condor=True, njobs=10
+            area, ntoys=500, freezeSignal=0,
+            condor=True, njobs=50, card_or_w='initialFitWorkspace.root', 
+            extra=extra
         )
 
-def test_GoF_plot(SRorCR, signal, tf=''):
+def test_GoF_plot(workspace, signal, SRtf='', CRtf='', condor=False, appendName = ''):
     '''Plot the GoF in XHYfits_<SRorCR>/XHY-<signal>_area (condor=True indicates that condor jobs need to be unpacked)'''
-    assert SRorCR == 'ttCR'
     signame = 'XHY-'+signal
-    plot.plot_gof('XHYfits_'+SRorCR,'{}-{}_area'.format(signame,tf), condor=False)
+
+    if SRtf == '' and CRtf == '':
+        area = 'XHY-{}_area'.format(signal)
+    else:
+        area = 'XHY-{}-SR{}-CR{}_area'.format(signal,SRtf,CRtf)
+    
+    plot.plot_gof(f'{workspace}fits',area, condor=condor)
+
+def test_limits(workspace, signal, SRtf, CRtf):
+    working_area = '{}fits'.format(workspace)
+
+    if SRtf == '' and CRtf == '':
+        area = 'XHY-{}_area'.format(signal)
+    else:
+        area = 'XHY-{}-SR{}-CR{}_area'.format(signal,SRtf,CRtf)
+
+    twoD = TwoDAlphabet(working_area, '{}/runConfig.json'.format(working_area), loadPrevious=True)
+    twoD.Limit(
+        subtag=area,
+        blindData=False,        # BE SURE TO CHANGE THIS IF YOU NEED TO BLIND YOUR DATA
+        verbosity=2,
+        card_or_w='initialFitWorkspace.root',
+        condor=False
+    )
+
+
+def test_Impacts(workspace, signal='1000-500', SRtf='', CRtf=''):
+    working_area = '{}fits'.format(workspace)
+    twoD = TwoDAlphabet(working_area, '{}/runConfig.json'.format(working_area), loadPrevious=True)
+    twoD.Impacts('XHY-{}_area'.format(signal), rMin=-1, rMax=4, extra='')
+
 
 if __name__ == "__main__":
-    test_make('ttCR')
-    test_fit('ttCR','1000-500','0x0',MinStrat=1,extra='--robustFit 1')
-    test_plot('ttCR','1000-500','0x0',prefit=True)
-    test_plot('ttCR','1000-500','0x0',prefit=False)
-    #test_GoF('ttCR','1000-500','0x0')
-    #test_GoF_plot('ttCR','1000-500','0x0')
+    from argparse import ArgumentParser
+    parser = ArgumentParser()
+    parser.add_argument('-w', type=str, dest='workspace',
+                        action='store', default='jointSRttCR',
+                        help='workspace name')
+    parser.add_argument('-s', type=str, dest='sigmass',
+                        action='store', default='1000-500',
+                        help='mass of X and Y candidates')
+    parser.add_argument('--condor', dest='condor',
+                        action='store_true',
+                        help='If passed as argument, use Condor for methods')
+    parser.add_argument('--make', dest='make',
+                        action='store_true', 
+                        help='If passed as argument, create 2DAlphabet workspace')
+    parser.add_argument('--SRtf', type=str, dest='SRtf',
+                        action='store', default='', required=False,
+                        help='TF parameterization for SR tf')
+    parser.add_argument('--CRtf', type=str, dest='CRtf',
+                        action='store', default='', required=False,
+                        help='TF parameterization for CR tf')
+    parser.add_argument('--fit', dest='fit',
+                        action='store_true',
+                        help='If passed as argument, run the NLL fit')
+    parser.add_argument('--plot', dest='plot',
+                        action='store_true',
+                        help='If passed as argument, plot the result of the fit')
+    parser.add_argument('--gof', dest='gof',
+                        action='store_true',
+                        help='If passed as argument, run GoF test for the fit')
+    parser.add_argument('--rinj', type=float, dest='rinj',
+                        action='store', default='0.0',
+                        help='Value of signal strength to inject')
+    parser.add_argument('--inject', dest='inject',
+                        action='store_true',
+                        help='If passed as argument, run signal injection test for the fit')
+    parser.add_argument('--impacts', dest='impacts',
+                        action='store_true',
+                        help='If passed as argument, run impacts for the fit')
+    parser.add_argument('--limit', dest='limit',
+                        action='store_true',
+                        help='If passed as argument, run the limit for the fit')
+    parser.add_argument('--analyzeNLL', dest='analyzeNLL',
+                        action='store_true',
+                        help='Analyze NLL as function of all nuisances')
+
+    # Fit options
+    parser.add_argument('--strat', dest='strat',
+                        action='store', default='0',
+                        help='Default minimizer strategy')
+    parser.add_argument('--tol', dest='tol',
+                        action='store', default='0.1',
+                        help='Default minimizer tolerance')
+    parser.add_argument('--robustFit', dest='robustFit',
+                        action='store_true',
+                        help='If passed as argument, uses robustFit algo')
+    parser.add_argument('--robustHesse', dest='robustHesse',
+                        action='store_true',
+                        help='If passed as argument, uses robustHesse algo')
+    parser.add_argument('--rMin', dest='rMin',
+                        action='store', default='-1',
+                        help='Minimum allowed signal strength')
+    parser.add_argument('--rMax', dest='rMax',
+                        action='store', default='10',
+                        help='Maximium allowed signal strength')
+    parser.add_argument('-v', dest='verbosity',
+                        action='store', default='2',
+                        help='Combine verbosity')
+
+    args = parser.parse_args()
+
+    if args.make:
+        mX   = args.sigmass.split('-')[0]
+        mY = args.sigmass.split('-')[-1]
+        fr = {'XHY-MX-MY':f'XHY-{mX}-{mY}'}
+        test_make(args.workspace, fr=fr)
+    if args.fit:
+        if (args.robustFit) and (args.robustHesse):
+            raise ValueError('Cannot use both robustFit and robustHesse algorithms simultaneously') 
+        elif (args.robustFit) or (args.robustHesse):
+            if args.robustFit:
+                algo = f'--robustFit 1'
+            else:
+                algo = f'--robustHesse 1'
+        else:
+            algo = ''
+        test_fit(
+            args.workspace, 
+            args.sigmass, 
+            SRtf=args.SRtf,
+            CRtf=args.CRtf,
+            defMinStrat=int(args.strat), 
+            extra=f'{algo} --cminDefaultMinimizerTolerance {args.tol}',
+            rMin=args.rMin,
+            rMax=args.rMax,
+            verbosity=args.verbosity
+        )
+    if args.plot:
+        test_plot(args.workspace, args.sigmass, SRtf=args.SRtf, CRtf=args.CRtf)
+    if args.gof:
+        test_GoF(args.workspace, args.sigmass, SRtf=args.SRtf, CRtf=args.CRtf, condor=args.condor, extra='--fixedSignalStrength 0')
+        test_GoF_plot(args.workspace, args.sigmass, SRtf=args.SRtf, CRtf=args.CRtf, condor=args.condor)
+    if args.limit:
+        test_limits(args.workspace, args.sigmass, args.SRtf, args.CRtf)
+    # ignore the rest of this stuff for now
+    if args.inject:
+        #test_SigInj(args.workspace, args.rinj, args.sigmass, args.SRtf, args.CRtf, condor=args.condor)
+        test_SigInj_plot(args.workspace, args.rinj, args.sigmass, args.SRtf, args.CRtf, condor=args.condor)
+    if args.impacts:
+        test_Impacts(args.workspace, args.sigmass, args.SRtf, args.CRtf)
+    if args.analyzeNLL:
+        test_analyze(args.workspace, args.sigmass, args.SRtf, args.CRtf)
+

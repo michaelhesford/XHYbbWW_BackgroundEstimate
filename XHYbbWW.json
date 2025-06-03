@@ -2,402 +2,1206 @@
     "NAME" : "XHYbbWW_semileptonic",
     "GLOBAL" : {
          "FILE" : "XHYbbWWselection_$process.root",
+         "FILE_UP": "XHYbbWWselection_$process_$syst_up.root",
+         "FILE_DOWN": "XHYbbWWselection_$process_$syst_down.root",
          "HIST" : "MXvMY_$region__nominal",
          "HIST_UP" : "MXvMY_$region__$syst_up",
          "HIST_DOWN" : "MXvMY_$region__$syst_down",
-         "path" : "/uscms/home/mhesford/nobackup/XHYbbWW/CMSSW_12_3_0/src/semileptonic/selection",
-         "SIGNAME" : ["XHY-1000-500"]
+         "LOCAL_PATH" : "selection",
+	 "EOS_PATH" : "root://cmseos.fnal.gov//store/user/mhesford/XHYbbWW_semileptonic/selection",
+         "SIGNAME" : ["XHY-MX-MY"]
     },
     "PROCESSES" : {
         "data_obs" : {
             "SYSTEMATICS" : [],
             "SCALE" : 1.0,
-            "COLOR" : 1,
+            "COLOR" : "black",
             "TYPE" : "DATA",
             "ALIAS" : "DataRun2",
             "TITLE" : "Data",
-            "LOC" : "path/FILE:HIST"
+            "LOC" : "selection/Data_Asimov_fit.root:HIST"
         },
-        "ttbar" : {
-            "SYSTEMATICS" : ["lumi","ttbar_xsec","tpt","pdf_16","pdf_16APV","pdf_17","pdf_18","pileup_16","pileup_16APV","pileup_17","pileup_18","prefire_16","prefire_16APV","prefire_17","jer_16","jer_16APV","jer_17","jer_18","jes_16","jes_16APV","jes_17","jes_18","jmr_16","jmr_16APV","jmr_17","jmr_18","jms_16","jms_16APV","jms_17","jms_18","eleid_16APV","eleid_16","eleid_17","eleid_18","elereco_16APV","elereco_16","elereco_17","elereco_18","muoid_16APV","muoid_16","muoid_17","muoid_18","muoreco_16APV","muoreco_16","muoreco_17","muoreco_18","hbb_t","hbb_bq","wqq_t","wqq_w","wqq_o","trig_16","trig_17","trig_18"],
+        "ttbar_16APV" : {
+            "SYSTEMATICS" : [
+                "lumi_13TeV_2016",
+		"lumi_correlated",
+                "CMS_MuoTriggerWeight_lowPt_2016APV",
+                "CMS_MuoTriggerWeight_highPt_2016APV",
+                "CMS_EgmTriggerWeight_2016APV",
+                "CMS_UnlusteredEnergy_2016APV",
+                "CMS_l1_ecal_prefiring_2016APV",
+                "CMS_pileup_2016APV",
+                "CMS_res_j_2016APV",
+                "CMS_scale_j",
+                "CMS_res_jm_2016APV",
+                "CMS_scale_jm_2016APV",
+		"muon_ID_stat_2016APV",
+		"muon_reco_stat_2016APV",
+                "muon_ID_syst",
+                "muon_reco_syst",
+		"electron_ID",
+		"electron_reco",
+		"btag_bc_corr",
+		"btag_light_corr",
+		"btag_bc_16APV",
+		"btag_light_16APV",
+		"CMS_TopPtReweighting",
+		"pdf_shape",
+		"QCDscale_ttbar",
+		"ps_isr_ttbar",
+		"ps_fsr"
+	    ],
             "SCALE" : 1.0,
-            "COLOR" : 2,
+            "COLOR" : "red",
             "TYPE" : "BKG",
             "TITLE" : "t#bar{t}",
-            "LOC" : "path/FILE:HIST"
+            "LOC" : "EOS_PATH/FILE:HIST"
         },
-        "WJets" : {
-            "SYSTEMATICS" : ["lumi","wjets_xsec","pdf_16","pdf_16APV","pdf_17","pdf_18","pileup_16","pileup_16APV","pileup_17","pileup_18","prefire_16","prefire_16APV","prefire_17","jer_16","jer_16APV","jer_17","jer_18","jes_16","jes_16APV","jes_17","jes_18","jmr_16","jmr_16APV","jmr_17","jmr_18","jms_16","jms_16APV","jms_17","jms_18","eleid_16APV","eleid_16","eleid_17","eleid_18","elereco_16APV","elereco_16","elereco_17","elereco_18","muoid_16APV","muoid_16","muoid_17","muoid_18","muoreco_16APV","muoreco_16","muoreco_17","muoreco_18","trig_16","trig_17","trig_18"],
+        "ttbar_16" : {
+            "SYSTEMATICS" : [
+                "lumi_13TeV_2016",
+		"lumi_correlated",
+		"CMS_MuoTriggerWeight_lowPt_2016",
+                "CMS_MuoTriggerWeight_highPt_2016",
+                "CMS_EgmTriggerWeight_2016",
+                "CMS_UnlusteredEnergy_2016",
+                "CMS_l1_ecal_prefiring_2016",
+                "CMS_pileup_2016",
+                "CMS_res_j_2016",
+                "CMS_scale_j",
+                "CMS_res_jm_2016",
+                "CMS_scale_jm_2016",
+		"muon_ID_stat_2016",
+		"muon_reco_stat_2016",
+                "muon_ID_syst",
+                "muon_reco_syst",
+		"electron_ID",
+		"electron_reco",
+		"btag_bc_corr",
+                "btag_light_corr",
+                "btag_bc_16",
+                "btag_light_16",
+                "CMS_TopPtReweighting",
+                "pdf_shape",
+                "QCDscale_ttbar",
+                "ps_isr_ttbar",
+                "ps_fsr"
+            ],
             "SCALE" : 1.0,
-            "COLOR" : 3,
+            "COLOR" : "red",
             "TYPE" : "BKG",
-            "TITLE" : "W+Jets",
-            "LOC" : "path/FILE:HIST"
+            "TITLE" : "t#bar{t}",
+            "LOC" : "EOS_PATH/FILE:HIST"
         },
-        "DYJets" : {
-            "SYSTEMATICS" : ["lumi","wjets_xsec","pdf_16","pdf_16APV","pdf_17","pdf_18","pileup_16","pileup_16APV","pileup_17","pileup_18","jer_16","jer_16APV","jer_17","jer_18","jes_16","jes_16APV","jes_17","jes_18","jmr_16","jmr_16APV","jmr_17","jmr_18","jms_16","jms_16APV","jms_17","jms_18","eleid_16APV","eleid_16","eleid_17","eleid_18","elereco_16APV","elereco_16","elereco_17","elereco_18","muoid_16APV","muoid_16","muoid_17","muoid_18","muoreco_16APV","muoreco_16","muoreco_17","muoreco_18","trig_16","trig_17","trig_18"],
+        "ttbar_17" : {
+            "SYSTEMATICS" : [
+                "lumi_13TeV_2017",
+		"lumi_13TeV_201718_correlated",
+		"lumi_correlated",
+		"CMS_MuoTriggerWeight_lowPt_2017",
+                "CMS_MuoTriggerWeight_highPt_2017",
+                "CMS_EgmTriggerWeight_2017",
+                "CMS_UnlusteredEnergy_2017",
+                "CMS_l1_ecal_prefiring_2017",
+                "CMS_pileup_2017",
+                "CMS_res_j_2017",
+                "CMS_scale_j",
+                "CMS_res_jm_2017",
+                "CMS_scale_jm_2017",
+		"muon_ID_stat_2017",
+                "muon_reco_stat_2017",
+                "muon_ID_syst",
+                "muon_reco_syst",
+                "electron_ID",
+                "electron_reco",
+		"btag_bc_corr",
+                "btag_light_corr",
+                "btag_bc_17",
+                "btag_light_17",
+                "CMS_TopPtReweighting",
+                "pdf_shape",
+                "QCDscale_ttbar",
+                "ps_isr_ttbar",
+                "ps_fsr"
+            ],
             "SCALE" : 1.0,
-            "COLOR" : 4,
+            "COLOR" : "red",
             "TYPE" : "BKG",
-            "TITLE" : "W+Jets",
-            "LOC" : "path/FILE:HIST"
+            "TITLE" : "t#bar{t}",
+            "LOC" : "EOS_PATH/FILE:HIST"
         },
-        "VV" : {
-            "SYSTEMATICS" : ["lumi","pileup_16","pileup_16APV","pileup_17","pileup_18","prefire_16","prefire_16APV","prefire_17","jer_16","jer_16APV","jer_17","jer_18","jes_16","jes_16APV","jes_17","jes_18","jmr_16","jmr_16APV","jmr_17","jmr_18","jms_16","jms_16APV","jms_17","jms_18","eleid_16APV","eleid_16","eleid_17","eleid_18","elereco_16APV","elereco_16","elereco_17","elereco_18","muoid_16APV","muoid_16","muoid_17","muoid_18","muoreco_16APV","muoreco_16","muoreco_17","muoreco_18","trig_16","trig_17","trig_18"],
+        "ttbar_18" : {
+            "SYSTEMATICS" : [
+                "lumi_13TeV_2018",
+		"lumi_13TeV_201718_correlated",
+		"lumi_correlated",
+		"CMS_MuoTriggerWeight_lowPt_2018",
+                "CMS_MuoTriggerWeight_highPt_2018",
+                "CMS_EgmTriggerWeight_2018",
+                "CMS_UnlusteredEnergy_2018",
+                "CMS_pileup_2018",
+                "CMS_res_j_2018",
+                "CMS_scale_j",
+                "CMS_res_jm_2018",
+                "CMS_scale_jm_2018",
+		"muon_ID_stat_2018",
+                "muon_reco_stat_2018",
+                "muon_ID_syst",
+                "muon_reco_syst",
+                "electron_ID",
+                "electron_reco",
+		"btag_bc_corr",
+                "btag_light_corr",
+                "btag_bc_18",
+                "btag_light_18",
+                "CMS_TopPtReweighting",
+                "pdf_shape",
+                "QCDscale_ttbar",
+                "ps_isr_ttbar",
+                "ps_fsr"
+            ],
             "SCALE" : 1.0,
-            "COLOR" : 5,
+            "COLOR" : "red",
             "TYPE" : "BKG",
-            "TITLE" : "Diboson",
-            "LOC" : "path/FILE:HIST"
+            "TITLE" : "t#bar{t}",
+            "LOC" : "EOS_PATH/FILE:HIST"
         },
-        "SIGNAME" : {
-            "SYSTEMATICS" : ["lumi","pdf_16","pdf_16APV","pdf_17","pdf_18","pileup_16","pileup_16APV","pileup_17","pileup_18","prefire_16","prefire_16APV","prefire_17","jer_16","jer_16APV","jer_17","jer_18","jes_16","jes_16APV","jes_17","jes_18","jmr_16","jmr_16APV","jmr_17","jmr_18","jms_16","jms_16APV","jms_17","jms_18","eleid_16APV","eleid_16","eleid_17","eleid_18","elereco_16APV","elereco_16","elereco_17","elereco_18","muoid_16APV","muoid_16","muoid_17","muoid_18","muoreco_16APV","muoreco_16","muoreco_17","muoreco_18","hbb_h","wqq_w","trig_16","trig_17","trig_18"],
+        "ST_16APV" : {
+            "SYSTEMATICS" : [
+                "lumi_13TeV_2016",
+                "lumi_correlated",
+		"CMS_MuoTriggerWeight_lowPt_2016APV",
+                "CMS_MuoTriggerWeight_highPt_2016APV",
+                "CMS_EgmTriggerWeight_2016APV",
+                "CMS_UnlusteredEnergy_2016APV",
+                "CMS_l1_ecal_prefiring_2016APV",
+                "CMS_pileup_2016APV",
+                "CMS_res_j_2016APV",
+                "CMS_scale_j",
+                "CMS_res_jm_2016APV",
+                "CMS_scale_jm_2016APV",
+                "muon_ID_stat_2016APV",
+                "muon_reco_stat_2016APV",
+                "muon_ID_syst",
+                "muon_reco_syst",
+                "electron_ID",
+                "electron_reco",
+                "btag_bc_corr",
+                "btag_light_corr",
+                "btag_bc_16APV",
+                "btag_light_16APV",
+                "pdf_shape",
+                "QCDscale_EW",
+                "ps_isr_EW",
+                "ps_fsr"
+            ],
             "SCALE" : 1.0,
-            "COLOR" : 1,
+            "COLOR" : "orange",
+            "TYPE" : "BKG",
+            "TITLE" : "Single-Top",
+            "LOC" : "EOS_PATH/FILE:HIST"
+        },
+        "ST_16" : {
+            "SYSTEMATICS" : [
+                "lumi_13TeV_2016",
+                "lumi_correlated",
+		"CMS_MuoTriggerWeight_lowPt_2016",
+                "CMS_MuoTriggerWeight_highPt_2016",
+                "CMS_EgmTriggerWeight_2016",
+                "CMS_UnlusteredEnergy_2016",
+                "CMS_l1_ecal_prefiring_2016",
+                "CMS_pileup_2016",
+                "CMS_res_j_2016",
+                "CMS_scale_j",
+                "CMS_res_jm_2016",
+                "CMS_scale_jm_2016",
+                "muon_ID_stat_2016",
+                "muon_reco_stat_2016",
+                "muon_ID_syst",
+                "muon_reco_syst",
+                "electron_ID",
+                "electron_reco",
+                "btag_bc_corr",
+                "btag_light_corr",
+                "btag_bc_16",
+                "btag_light_16",
+                "pdf_shape",
+                "QCDscale_EW",
+                "ps_isr_EW",
+                "ps_fsr"
+            ],
+            "SCALE" : 1.0,
+            "COLOR" : "orange",
+            "TYPE" : "BKG",
+            "TITLE" : "Single-Top",
+            "LOC" : "EOS_PATH/FILE:HIST"
+        },
+	"ST_17" : {
+            "SYSTEMATICS" : [
+                "lumi_13TeV_2017",
+		"lumi_13TeV_201718_correlated",
+                "lumi_correlated",
+		"CMS_MuoTriggerWeight_lowPt_2017",
+                "CMS_MuoTriggerWeight_highPt_2017",
+                "CMS_EgmTriggerWeight_2017",
+                "CMS_UnlusteredEnergy_2017",
+                "CMS_l1_ecal_prefiring_2017",
+                "CMS_pileup_2017",
+                "CMS_res_j_2017",
+                "CMS_scale_j",
+                "CMS_res_jm_2017",
+                "CMS_scale_jm_2017",
+                "muon_ID_stat_2017",
+                "muon_reco_stat_2017",
+                "muon_ID_syst",
+                "muon_reco_syst",
+                "electron_ID",
+                "electron_reco",
+                "btag_bc_corr",
+                "btag_light_corr",
+                "btag_bc_17",
+                "btag_light_17",
+                "pdf_shape",
+                "QCDscale_EW",
+                "ps_isr_EW",
+                "ps_fsr"
+            ],
+            "SCALE" : 1.0,
+            "COLOR" : "orange",
+            "TYPE" : "BKG",
+            "TITLE" : "Single-Top",
+            "LOC" : "EOS_PATH/FILE:HIST"
+        },
+	"ST_18" : {
+            "SYSTEMATICS" : [
+                "lumi_13TeV_2018",
+		"lumi_13TeV_201718_correlated",
+                "lumi_correlated",
+		"CMS_MuoTriggerWeight_lowPt_2018",
+                "CMS_MuoTriggerWeight_highPt_2018",
+                "CMS_EgmTriggerWeight_2018",
+                "CMS_UnlusteredEnergy_2018",
+                "CMS_pileup_2018",
+                "CMS_res_j_2018",
+                "CMS_scale_j",
+                "CMS_res_jm_2018",
+                "CMS_scale_jm_2018",
+                "muon_ID_stat_2018",
+                "muon_reco_stat_2018",
+                "muon_ID_syst",
+                "muon_reco_syst",
+                "electron_ID",
+                "electron_reco",
+                "btag_bc_corr",
+                "btag_light_corr",
+                "btag_bc_18",
+                "btag_light_18",
+                "pdf_shape",
+                "QCDscale_EW",
+                "ps_isr_EW",
+                "ps_fsr"
+            ],
+            "SCALE" : 1.0,
+            "COLOR" : "orange",
+            "TYPE" : "BKG",
+            "TITLE" : "Single-Top",
+            "LOC" : "EOS_PATH/FILE:HIST"
+        },
+        "VJets_16APV" : {
+            "SYSTEMATICS" : [
+                "lumi_13TeV_2016",
+		"lumi_correlated",
+		"CMS_MuoTriggerWeight_lowPt_2016APV",
+                "CMS_MuoTriggerWeight_highPt_2016APV",
+                "CMS_EgmTriggerWeight_2016APV",
+                "CMS_UnlusteredEnergy_2016APV",
+                "CMS_l1_ecal_prefiring_2016APV",
+                "CMS_pileup_2016APV",
+                "CMS_res_j_2016APV",
+                "CMS_scale_j",
+                "CMS_res_jm_2016APV",
+                "CMS_scale_jm_2016APV",
+		"muon_ID_stat_2016APV",
+                "muon_reco_stat_2016APV",
+                "muon_ID_syst",
+                "muon_reco_syst",
+                "electron_ID",
+                "electron_reco",
+		"btag_bc_corr",
+                "btag_light_corr",
+                "btag_bc_16APV",
+                "btag_light_16APV",
+                "pdf_shape",
+                "QCDscale_EW",
+                "ps_isr_EW",
+                "ps_fsr"
+            ],
+            "SCALE" : 1.0,
+            "COLOR" : "green",
+            "TYPE" : "BKG",
+            "TITLE" : "V+Jets",
+            "LOC" : "EOS_PATH/FILE:HIST"
+        },
+        "VJets_16" : {
+            "SYSTEMATICS" : [
+                "lumi_13TeV_2016",
+		"lumi_correlated",
+		"CMS_MuoTriggerWeight_lowPt_2016",
+                "CMS_MuoTriggerWeight_highPt_2016",
+                "CMS_EgmTriggerWeight_2016",
+                "CMS_UnlusteredEnergy_2016",
+                "CMS_l1_ecal_prefiring_2016",
+                "CMS_pileup_2016",
+                "CMS_res_j_2016",
+                "CMS_scale_j",
+                "CMS_res_jm_2016",
+                "CMS_scale_jm_2016",
+		"muon_ID_stat_2016",
+                "muon_reco_stat_2016",
+                "muon_ID_syst",
+                "muon_reco_syst",
+                "electron_ID",
+                "electron_reco",
+		"btag_bc_corr",
+                "btag_light_corr",
+                "btag_bc_16",
+                "btag_light_16",
+                "pdf_shape",
+                "QCDscale_EW",
+                "ps_isr_EW",
+                "ps_fsr"
+            ],
+            "SCALE" : 1.0,
+            "COLOR" : "green",
+            "TYPE" : "BKG",
+            "TITLE" : "V+Jets",
+            "LOC" : "EOS_PATH/FILE:HIST"
+        },
+        "VJets_17" : {
+            "SYSTEMATICS" : [
+                "lumi_13TeV_2017",
+		"lumi_13TeV_201718_correlated",
+		"lumi_correlated",
+		"CMS_MuoTriggerWeight_lowPt_2017",
+                "CMS_MuoTriggerWeight_highPt_2017",
+                "CMS_EgmTriggerWeight_2017",
+                "CMS_UnlusteredEnergy_2017",
+                "CMS_l1_ecal_prefiring_2017",
+                "CMS_pileup_2017",
+                "CMS_res_j_2017",
+                "CMS_scale_j",
+                "CMS_res_jm_2017",
+                "CMS_scale_jm_2017",
+		"muon_ID_stat_2017",
+                "muon_reco_stat_2017",
+                "muon_ID_syst",
+                "muon_reco_syst",
+                "electron_ID",
+                "electron_reco",
+		"btag_bc_corr",
+                "btag_light_corr",
+                "btag_bc_17",
+                "btag_light_17",
+                "pdf_shape",
+                "QCDscale_EW",
+                "ps_isr_EW",
+                "ps_fsr"
+            ],
+            "SCALE" : 1.0,
+            "COLOR" : "green",
+            "TYPE" : "BKG",
+            "TITLE" : "V+Jets",
+            "LOC" : "EOS_PATH/FILE:HIST"
+        },
+        "VJets_18" : {
+            "SYSTEMATICS" : [
+                "lumi_13TeV_2018",
+		"lumi_13TeV_201718_correlated",
+		"lumi_correlated",
+		"CMS_MuoTriggerWeight_lowPt_2018",
+                "CMS_MuoTriggerWeight_highPt_2018",
+                "CMS_EgmTriggerWeight_2018",
+                "CMS_UnlusteredEnergy_2018",
+                "CMS_pileup_2018",
+                "CMS_res_j_2018",
+                "CMS_scale_j",
+                "CMS_res_jm_2018",
+                "CMS_scale_jm_2018",
+		"muon_ID_stat_2018",
+                "muon_reco_stat_2018",
+                "muon_ID_syst",
+                "muon_reco_syst",
+                "electron_ID",
+                "electron_reco",
+		"btag_bc_corr",
+                "btag_light_corr",
+                "btag_bc_18",
+                "btag_light_18",
+                "pdf_shape",
+                "QCDscale_EW",
+                "ps_isr_EW",
+                "ps_fsr"
+            ],
+            "SCALE" : 1.0,
+            "COLOR" : "green",
+            "TYPE" : "BKG",
+            "TITLE" : "V+Jets",
+            "LOC" : "EOS_PATH/FILE:HIST"
+        },
+        "DYJets_16APV" : {
+            "SYSTEMATICS" : [
+                "lumi_13TeV_2016",
+		"lumi_correlated",
+		"CMS_MuoTriggerWeight_lowPt_2016APV",
+                "CMS_MuoTriggerWeight_highPt_2016APV",
+                "CMS_EgmTriggerWeight_2016APV",
+                "CMS_UnlusteredEnergy_2016APV",
+                "CMS_l1_ecal_prefiring_2016APV",
+                "CMS_pileup_2016APV",
+                "CMS_res_j_2016APV",
+                "CMS_scale_j",
+                "CMS_res_jm_2016APV",
+                "CMS_scale_jm_2016APV",
+		"muon_ID_stat_2016APV",
+                "muon_reco_stat_2016APV",
+                "muon_ID_syst",
+                "muon_reco_syst",
+                "electron_ID",
+                "electron_reco",
+		"btag_bc_corr",
+                "btag_light_corr",
+                "btag_bc_16APV",
+                "btag_light_16APV",
+                "pdf_shape",
+                "QCDscale_EW",
+                "ps_isr_EW",
+                "ps_fsr"
+            ],
+            "SCALE" : 1.0,
+            "COLOR" : "blue",
+            "TYPE" : "BKG",
+            "TITLE" : "Drell-Yan",
+            "LOC" : "EOS_PATH/FILE:HIST"
+        },
+        "DYJets_16" : {
+            "SYSTEMATICS" : [
+                "lumi_13TeV_2016",
+		"lumi_correlated",
+		"CMS_MuoTriggerWeight_lowPt_2016",
+                "CMS_MuoTriggerWeight_highPt_2016",
+                "CMS_EgmTriggerWeight_2016",
+                "CMS_UnlusteredEnergy_2016",
+                "CMS_l1_ecal_prefiring_2016",
+                "CMS_pileup_2016",
+                "CMS_res_j_2016",
+                "CMS_scale_j",
+                "CMS_res_jm_2016",
+                "CMS_scale_jm_2016",
+		"muon_ID_stat_2016",
+                "muon_reco_stat_2016",
+                "muon_ID_syst",
+                "muon_reco_syst",
+                "electron_ID",
+                "electron_reco",
+		"btag_bc_corr",
+                "btag_light_corr",
+                "btag_bc_16",
+                "btag_light_16",
+                "pdf_shape",
+                "QCDscale_EW",
+                "ps_isr_EW",
+                "ps_fsr"
+            ],
+            "SCALE" : 1.0,
+            "COLOR" : "blue",
+            "TYPE" : "BKG",
+            "TITLE" : "Drell-Yan",
+            "LOC" : "EOS_PATH/FILE:HIST"
+        },
+        "DYJets_17" : {
+            "SYSTEMATICS" : [
+                "lumi_13TeV_2017",
+		"lumi_13TeV_201718_correlated",
+		"lumi_correlated",
+		"CMS_MuoTriggerWeight_lowPt_2017",
+                "CMS_MuoTriggerWeight_highPt_2017",
+                "CMS_EgmTriggerWeight_2017",
+                "CMS_UnlusteredEnergy_2017",
+                "CMS_l1_ecal_prefiring_2017",
+                "CMS_pileup_2017",
+                "CMS_res_j_2017",
+                "CMS_scale_j",
+                "CMS_res_jm_2017",
+                "CMS_scale_jm_2017",
+		"muon_ID_stat_2017",
+                "muon_reco_stat_2017",
+                "muon_ID_syst",
+                "muon_reco_syst",
+                "electron_ID",
+                "electron_reco",
+		"btag_bc_corr",
+                "btag_light_corr",
+                "btag_bc_17",
+                "btag_light_17",
+                "pdf_shape",
+                "QCDscale_EW",
+                "ps_isr_EW",
+                "ps_fsr"
+            ],
+            "SCALE" : 1.0,
+            "COLOR" : "blue",
+            "TYPE" : "BKG",
+            "TITLE" : "Drell-Yan",
+            "LOC" : "EOS_PATH/FILE:HIST"
+        },
+        "DYJets_18" : {
+            "SYSTEMATICS" : [
+                "lumi_13TeV_2018",
+		"lumi_13TeV_201718_correlated",
+		"lumi_correlated",
+		"CMS_MuoTriggerWeight_lowPt_2018",
+                "CMS_MuoTriggerWeight_highPt_2018",
+                "CMS_EgmTriggerWeight_2018",
+                "CMS_UnlusteredEnergy_2018",
+                "CMS_pileup_2018",
+                "CMS_res_j_2018",
+                "CMS_scale_j",
+                "CMS_res_jm_2018",
+                "CMS_scale_jm_2018",
+		"muon_ID_stat_2018",
+                "muon_reco_stat_2018",
+                "muon_ID_syst",
+                "muon_reco_syst",
+                "electron_ID",
+                "electron_reco",
+		"btag_bc_corr",
+                "btag_light_corr",
+                "btag_bc_18",
+                "btag_light_18",
+                "pdf_shape",
+                "QCDscale_EW",
+                "ps_isr_EW",
+                "ps_fsr"
+            ],
+            "SCALE" : 1.0,
+            "COLOR" : "blue",
+            "TYPE" : "BKG",
+            "TITLE" : "Drell-Yan",
+            "LOC" : "EOS_PATH/FILE:HIST"
+        },
+        "QCD" : {
+            "SYSTEMATICS" : ["qcd_xsec"],
+            "SCALE" : 1.0,
+            "COLOR" : "yellow",
+            "TYPE" : "BKG",
+            "TITLE" : "QCD",
+            "LOC" : "LOCAL_PATH/FILE:HIST"
+        },
+        "SIGNAME_16APV" : {
+            "SYSTEMATICS" : [
+                "lumi_13TeV_2016",
+		"lumi_correlated",
+		"CMS_MuoTriggerWeight_lowPt_2016APV",
+                "CMS_MuoTriggerWeight_highPt_2016APV",
+                "CMS_EgmTriggerWeight_2016APV",
+                "CMS_UnlusteredEnergy_2016APV",
+                "CMS_l1_ecal_prefiring_2016APV",
+                "CMS_pileup_2016APV",
+                "CMS_res_j_2016APV",
+                "CMS_scale_j",
+                "CMS_res_jm_2016APV",
+                "CMS_scale_jm_2016APV",
+		"muon_ID_stat_2016APV",
+                "muon_reco_stat_2016APV",
+                "muon_ID_syst",
+                "muon_reco_syst",
+                "electron_ID",
+                "electron_reco",
+                "btag_bc_corr",
+                "btag_light_corr",
+                "btag_bc_16APV",
+                "btag_light_16APV",
+                "pdf_shape"
+            ],
+            "SCALE" : 1.0,
+            "COLOR" : "black",
             "TYPE" : "SIGNAL",
             "TITLE" : "SIGNAME",
-            "LOC" : "path/FILE:HIST"
+            "LOC" : "EOS_PATH/FILE:HIST"
+        },
+        "SIGNAME_16" : {
+            "SYSTEMATICS" : [
+                "lumi_13TeV_2016",
+		"lumi_correlated",
+		"CMS_MuoTriggerWeight_lowPt_2016",
+                "CMS_MuoTriggerWeight_highPt_2016",
+                "CMS_EgmTriggerWeight_2016",
+                "CMS_UnlusteredEnergy_2016",
+                "CMS_l1_ecal_prefiring_2016",
+                "CMS_pileup_2016",
+                "CMS_res_j_2016",
+                "CMS_scale_j",
+                "CMS_res_jm_2016",
+                "CMS_scale_jm_2016",
+		"muon_ID_stat_2016",
+                "muon_reco_stat_2016",
+                "muon_ID_syst",
+                "muon_reco_syst",
+                "electron_ID",
+                "electron_reco",
+                "btag_bc_corr",
+                "btag_light_corr",
+                "btag_bc_16",
+                "btag_light_16",
+                "pdf_shape"
+            ],
+            "SCALE" : 1.0,
+            "COLOR" : "black",
+            "TYPE" : "SIGNAL",
+            "TITLE" : "SIGNAME",
+            "LOC" : "EOS_PATH/FILE:HIST"
+        },
+        "SIGNAME_17" : {
+            "SYSTEMATICS" : [
+                "lumi_13TeV_2017",
+		"lumi_13TeV_201718_correlated",
+		"lumi_correlated",
+		"CMS_MuoTriggerWeight_lowPt_2017",
+                "CMS_MuoTriggerWeight_highPt_2017",
+                "CMS_EgmTriggerWeight_2017",
+                "CMS_UnlusteredEnergy_2017",
+                "CMS_l1_ecal_prefiring_2017",
+                "CMS_pileup_2017",
+                "CMS_res_j_2017",
+                "CMS_scale_j",
+                "CMS_res_jm_2017",
+                "CMS_scale_jm_2017",
+		"muon_ID_stat_2017",
+                "muon_reco_stat_2017",
+                "muon_ID_syst",
+                "muon_reco_syst",
+                "electron_ID",
+                "electron_reco",
+                "btag_bc_corr",
+                "btag_light_corr",
+                "btag_bc_17",
+                "btag_light_17",
+                "pdf_shape"
+            ],
+            "SCALE" : 1.0,
+            "COLOR" : "black",
+            "TYPE" : "SIGNAL",
+            "TITLE" : "SIGNAME",
+            "LOC" : "EOS_PATH/FILE:HIST"
+        },
+        "SIGNAME_18" : {
+            "SYSTEMATICS" : [
+                "lumi_13TeV_2018",
+		"lumi_13TeV_201718_correlated",
+		"lumi_correlated",
+		"CMS_MuoTriggerWeight_lowPt_2018",
+                "CMS_MuoTriggerWeight_highPt_2018",
+                "CMS_EgmTriggerWeight_2018",
+                "CMS_UnlusteredEnergy_2018",
+                "CMS_pileup_2018",
+                "CMS_res_j_2018",
+                "CMS_scale_j",
+                "CMS_res_jm_2018",
+                "CMS_scale_jm_2018",
+		"muon_ID_stat_2018",
+                "muon_reco_stat_2018",
+                "muon_ID_syst",
+                "muon_reco_syst",
+                "electron_ID",
+                "electron_reco",
+                "btag_bc_corr",
+                "btag_light_corr",
+                "btag_bc_18",
+                "btag_light_18",
+                "pdf_shape"
+            ],
+            "SCALE" : 1.0,
+            "COLOR" : "black",
+            "TYPE" : "SIGNAL",
+            "TITLE" : "SIGNAME",
+            "LOC" : "EOS_PATH/FILE:HIST"
         }
     },                                  
     "REGIONS" : {
-        "pass_ttCR" : {
-            "PROCESSES" : ["SIGNAME","ttbar","WJets","VV","DYJets"],
+        "pass_SR" : {
+            "PROCESSES" : ["SIGNAME_16APV","SIGNAME_16","SIGNAME_17","SIGNAME_18","ttbar_16APV","ttbar_16","ttbar_17","ttbar_18","ST_16APV","ST_16","ST_17","ST_18","VJets_16APV","VJets_16","VJets_17","VJets_18","DYJets_16APV","DYJets_16","DYJets_17","DYJets_18","QCD"],
             "BINNING" : "default"
         },
-        "fail_ttCR" : {
-            "PROCESSES" : ["SIGNAME","ttbar","WJets","VV","DYJets"],
+        "pass_ttCR" : {
+            "PROCESSES" : ["SIGNAME_16APV","SIGNAME_16","SIGNAME_17","SIGNAME_18","ttbar_16APV","ttbar_16","ttbar_17","ttbar_18","ST_16APV","ST_16","ST_17","ST_18","VJets_16APV","VJets_16","VJets_17","VJets_18","DYJets_16APV","DYJets_16","DYJets_17","DYJets_18","QCD"],
             "BINNING" : "default"
         }
     },
     "SYSTEMATICS" : {
-        "lumi" : {
-            "CODE" : 0,
-            "VAL" : 1.016
+        "lumi_13TeV_2016": {
+            "CODE": 0,
+            "VAL": 1.01
+        },
+        "lumi_13TeV_2017": {
+            "CODE": 0,
+            "VAL": 1.02
+        },
+        "lumi_13TeV_2018": {
+            "CODE": 0,
+            "VAL": 1.015
+        },
+        "lumi_13TeV_201718_correlated": {
+            "CODE": 0,
+            "VAL": 1.0036
+        },
+        "lumi_correlated": {
+            "CODE": 0,
+            "VAL": 1.013
         },
         "ttbar_xsec" : {
              "CODE" : 0,
-             "VAL": 1.3
+             "VAL": 1.05
         },
+	"st_xsec" : {
+	     "Code" : 0,
+	     "VAL" : 1.05
+	},
         "wjets_xsec" : {
              "CODE" : 0,
-             "VAL": 1.3
+             "VAL": 1.05
         },
-        "pileup_16" : {
-            "ALIAS" : "Pileup_16",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
+        "dyjets_xsec" : {
+             "CODE" : 0,
+             "VAL": 1.05
+        },
+	"qcd_xsec" : {
+	     "CODE" : 0,
+	     "VAL" : 1.1
+	},
+        "CMS_pileup_2016APV" : {
+            "ALIAS" : "Pileup",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
             "SIGMA" : 1.0
         },
-        "pileup_16APV" : {
-            "ALIAS" : "Pileup_16APV",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
+        "CMS_pileup_2016" : {
+            "ALIAS" : "Pileup",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
             "SIGMA" : 1.0
         },
-        "pileup_17" : {
-            "ALIAS" : "Pileup_17",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
+        "CMS_pileup_2017" : {
+            "ALIAS" : "Pileup",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
             "SIGMA" : 1.0
         },
-        "pileup_18" : {
-            "ALIAS" : "Pileup_18",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
+        "CMS_pileup_2018" : {
+            "ALIAS" : "Pileup",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
             "SIGMA" : 1.0
         },
-        "prefire_16" : {
-            "ALIAS" : "L1PreFiringWeight_16",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
+        "CMS_l1_ecal_prefiring_2016APV" : {
+            "ALIAS" : "L1PreFiringWeight",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
             "SIGMA" : 1.0
         },
-        "prefire_16APV" : {
-            "ALIAS" : "L1PreFiringWeight_16APV",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
+        "CMS_l1_ecal_prefiring_2016" : {
+            "ALIAS" : "L1PreFiringWeight",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
             "SIGMA" : 1.0
         },
-        "prefire_17" : {
-            "ALIAS" : "L1PreFiringWeight_17",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
+        "CMS_l1_ecal_prefiring_2017" : {
+            "ALIAS" : "L1PreFiringWeight",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
             "SIGMA" : 1.0
         },
-        "pdf_16" : {
-            "ALIAS" : "Pdfweight_16",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
+        "pdf_shape" : {
+            "ALIAS" : "Pdfweight",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
             "SIGMA" : 1.0
         },
-        "pdf_16APV" : {
-            "ALIAS" : "Pdfweight_16APV",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
-            "SIGMA" : 1.0
-        },
-        "pdf_17" : {
-            "ALIAS" : "Pdfweight_17",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
-            "SIGMA" : 1.0
-        },
-        "pdf_18" : {
-            "ALIAS" : "Pdfweight_18",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
-            "SIGMA" : 1.0
-        },
-        "tpt" : {
+        "CMS_TopPtReweighting" : {
             "ALIAS" : "TptReweight",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
             "SIGMA" : 1.0
         },
-        "jes_16" : {
-            "ALIAS" : "JES_16",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
+        "CMS_scale_j" : {
+            "ALIAS" : "JES",
+            "UP" : "EOS_PATH/FILE_UP:HIST",
+            "DOWN" : "EOS_PATH/FILE_DOWN:HIST",
             "SIGMA" : 1.0
         },
-        "jes_16APV" : {
-            "ALIAS" : "JES_16APV",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
+        "CMS_res_j_2016APV" : {
+            "ALIAS" : "JER",
+            "UP" : "EOS_PATH/FILE_UP:HIST",
+            "DOWN" : "EOS_PATH/FILE_DOWN:HIST",
             "SIGMA" : 1.0
         },
-        "jes_17" : {
-            "ALIAS" : "JES_17",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
+        "CMS_res_j_2016" : {
+            "ALIAS" : "JER",
+            "UP" : "EOS_PATH/FILE_UP:HIST",
+            "DOWN" : "EOS_PATH/FILE_DOWN:HIST",
             "SIGMA" : 1.0
         },
-        "jes_18" : {
-            "ALIAS" : "JES_18",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
+        "CMS_res_j_2017" : {
+            "ALIAS" : "JER",
+            "UP" : "EOS_PATH/FILE_UP:HIST",
+            "DOWN" : "EOS_PATH/FILE_DOWN:HIST",
             "SIGMA" : 1.0
         },
-        "jer_16" : {
-            "ALIAS" : "JER_16",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
+        "CMS_res_j_2018" : {
+            "ALIAS" : "JER",
+            "UP" : "EOS_PATH/FILE_UP:HIST",
+            "DOWN" : "EOS_PATH/FILE_DOWN:HIST",
             "SIGMA" : 1.0
         },
-        "jer_16APV" : {
-            "ALIAS" : "JER_16APV",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
+        "CMS_scale_jm_2016APV" : {
+            "ALIAS" : "JMS",
+            "UP" : "EOS_PATH/FILE_UP:HIST",
+            "DOWN" : "EOS_PATH/FILE_DOWN:HIST",
             "SIGMA" : 1.0
         },
-        "jer_17" : {
-            "ALIAS" : "JER_17",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
+        "CMS_scale_jm_2016" : {
+            "ALIAS" : "JMS",
+            "UP" : "EOS_PATH/FILE_UP:HIST",
+            "DOWN" : "EOS_PATH/FILE_DOWN:HIST",
             "SIGMA" : 1.0
         },
-        "jer_18" : {
-            "ALIAS" : "JER_18",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
+        "CMS_scale_jm_2017" : {
+            "ALIAS" : "JMS",
+            "UP" : "EOS_PATH/FILE_UP:HIST",
+            "DOWN" : "EOS_PATH/FILE_DOWN:HIST",
             "SIGMA" : 1.0
         },
-        "jms_16" : {
-            "ALIAS" : "JMS_16",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
+        "CMS_scale_jm_2018" : {
+            "ALIAS" : "JMS",
+            "UP" : "EOS_PATH/FILE_UP:HIST",
+            "DOWN" : "EOS_PATH/FILE_DOWN:HIST",
             "SIGMA" : 1.0
         },
-        "jms_16APV" : {
-            "ALIAS" : "JMS_16APV",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
+        "CMS_res_jm_2016APV" : {
+            "ALIAS" : "JMR",
+            "UP" : "EOS_PATH/FILE_UP:HIST",
+            "DOWN" : "EOS_PATH/FILE_DOWN:HIST",
             "SIGMA" : 1.0
         },
-        "jms_17" : {
-            "ALIAS" : "JMS_17",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
+        "CMS_res_jm_2016" : {
+            "ALIAS" : "JMR",
+            "UP" : "EOS_PATH/FILE_UP:HIST",
+            "DOWN" : "EOS_PATH/FILE_DOWN:HIST",
             "SIGMA" : 1.0
         },
-        "jms_18" : {
-            "ALIAS" : "JMS_18",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
+        "CMS_res_jm_2017" : {
+            "ALIAS" : "JMR",
+            "UP" : "EOS_PATH/FILE_UP:HIST",
+            "DOWN" : "EOS_PATH/FILE_DOWN:HIST",
             "SIGMA" : 1.0
         },
-        "jmr_16" : {
-            "ALIAS" : "JMR_16",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
+        "CMS_res_jm_2018" : {
+            "ALIAS" : "JMR",
+            "UP" : "EOS_PATH/FILE_UP:HIST",
+            "DOWN" : "EOS_PATH/FILE_DOWN:HIST",
             "SIGMA" : 1.0
         },
-        "jmr_16APV" : {
-            "ALIAS" : "JMR_16APV",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
+	"CMS_UnlusteredEnergy_2016APV" : {
+            "ALIAS" : "UE",
+            "UP" : "EOS_PATH/FILE_UP:HIST",
+            "DOWN" : "EOS_PATH/FILE_DOWN:HIST",
             "SIGMA" : 1.0
         },
-        "jmr_17" : {
-            "ALIAS" : "JMR_17",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
+        "CMS_UnlusteredEnergy_2016" : {
+            "ALIAS" : "UE",
+            "UP" : "EOS_PATH/FILE_UP:HIST",
+            "DOWN" : "EOS_PATH/FILE_DOWN:HIST",
             "SIGMA" : 1.0
         },
-        "jmr_18" : {
-            "ALIAS" : "JMR_18",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
+        "CMS_UnlusteredEnergy_2017" : {
+            "ALIAS" : "UE",
+            "UP" : "EOS_PATH/FILE_UP:HIST",
+            "DOWN" : "EOS_PATH/FILE_DOWN:HIST",
+            "SIGMA" : 1.0
+        },
+        "CMS_UnlusteredEnergy_2018" : {
+            "ALIAS" : "UE",
+            "UP" : "EOS_PATH/FILE_UP:HIST",
+            "DOWN" : "EOS_PATH/FILE_DOWN:HIST",
+            "SIGMA" : 1.0
+        },
+        "QCDscale_ttbar" : {
+            "ALIAS" : "QCDscale_uncert",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+        "QCDscale_EW" : {
+            "ALIAS" : "QCDscale_uncert",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+        "ps_isr_ttbar" : {
+            "ALIAS" : "ISRunc",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+        "ps_isr_EW" : {
+            "ALIAS" : "ISRunc",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+        "ps_fsr" : {
+            "ALIAS" : "FSRunc",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+        "electron_ID" : {
+            "ALIAS" : "ElectronIDWeight",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+        "electron_reco" : {
+            "ALIAS" : "ElectronRecoWeight",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+        "muon_ID_syst" : {
+            "ALIAS" : "MuonIDWeight_uncert_syst",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+	"muon_ID_stat_2016APV" : {
+            "ALIAS" : "MuonIDWeight_uncert_stat",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+        "muon_ID_stat_2016" : {
+            "ALIAS" : "MuonIDWeight_uncert_stat",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+	"muon_ID_stat_2017" : {
+            "ALIAS" : "MuonIDWeight_uncert_stat",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+	"muon_ID_stat_2018" : {
+            "ALIAS" : "MuonIDWeight_uncert_stat",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+        "muon_reco_syst" : {
+            "ALIAS" : "MuonRecoWeight_uncert_syst",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+	"muon_reco_stat_2016APV" : {
+            "ALIAS" : "MuonRecoWeight_uncert_stat",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+	"muon_reco_stat_2016" : {
+            "ALIAS" : "MuonRecoWeight_uncert_stat",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+	"muon_reco_stat_2017" : {
+            "ALIAS" : "MuonRecoWeight_uncert_stat",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+	"muon_reco_stat_2018" : {
+            "ALIAS" : "MuonRecoWeight_uncert_stat",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+	"btag_bc_corr" : {
+	    "ALIAS" : "Btag_bc_correlated",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+	},
+	"btag_bc_16APV" : {
+            "ALIAS" : "Btag_bc_uncorrelated",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+	"btag_bc_16" : {
+            "ALIAS" : "Btag_bc_uncorrelated",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+	"btag_bc_17" : {
+            "ALIAS" : "Btag_bc_uncorrelated",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+	"btag_bc_18" : {
+            "ALIAS" : "Btag_bc_uncorrelated",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+	"btag_light_corr" : {
+            "ALIAS" : "Btag_light_correlated",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+	"btag_light_16APV" : {
+            "ALIAS" : "Btag_light_uncorrelated",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+	"btag_light_16" : {
+            "ALIAS" : "Btag_light_uncorrelated",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+	"btag_light_17" : {
+            "ALIAS" : "Btag_light_uncorrelated",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+	"btag_light_18" : {
+            "ALIAS" : "Btag_light_uncorrelated",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+        "CMS_MuoTriggerWeight_lowPt_2016APV" : {
+            "ALIAS" : "MuoTrigSF_lowPt",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+        "CMS_MuoTriggerWeight_highPt_2016APV" : {
+            "ALIAS" : "MuoTrigSF_highPt",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+        "CMS_MuoTriggerWeight_lowPt_2016" : {
+            "ALIAS" : "MuoTrigSF_lowPt",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+        "CMS_MuoTriggerWeight_highPt_2016" : {
+            "ALIAS" : "MuoTrigSF_highPt",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+        "CMS_MuoTriggerWeight_lowPt_2017" : {
+            "ALIAS" : "MuoTrigSF_lowPt",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+        "CMS_MuoTriggerWeight_highPt_2017" : {
+            "ALIAS" : "MuoTrigSF_highPt",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+        "CMS_MuoTriggerWeight_lowPt_2018" : {
+            "ALIAS" : "MuoTrigSF_lowPt",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+        "CMS_MuoTriggerWeight_highPt_2018" : {
+            "ALIAS" : "MuoTrigSF_highPt",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+        "CMS_EgmTriggerWeight_2016APV" : {
+            "ALIAS" : "EgmTrigSF",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+        "CMS_EgmTriggerWeight_2016" : {
+            "ALIAS" : "EgmTrigSF",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+        "CMS_EgmTriggerWeight_2017" : {
+            "ALIAS" : "EgmTrigSF",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
+            "SIGMA" : 1.0
+        },
+        "CMS_EgmTriggerWeight_2018" : {
+            "ALIAS" : "EgmTrigSF",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
             "SIGMA" : 1.0
         },
         "wqq_t" : {
             "ALIAS" : "PNetWqq_tJ",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
             "SIGMA" : 1.0
         },
         "wqq_w" : {
             "ALIAS" : "PNetWqq_WJ",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
             "SIGMA" : 1.0
         },
         "wqq_o" : {
             "ALIAS" : "PNetWqq_oJ",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
             "SIGMA" : 1.0
         },
         "hbb_t" : {
             "ALIAS" : "PNetHbb_tJ",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
             "SIGMA" : 1.0
-        },  
+        },
         "hbb_bq" : {
             "ALIAS" : "PNetHbb_bqJ",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
             "SIGMA" : 1.0
         },
         "hbb_h" : {
             "ALIAS" : "PNetHbb_HJ",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
-            "SIGMA" : 1.0
-        },
-        "eleid_16APV" : {
-            "ALIAS" : "ElectronIDWeight_16APV",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
-            "SIGMA" : 1.0
-        },
-        "eleid_16" : {
-            "ALIAS" : "ElectronIDWeight_16",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
-            "SIGMA" : 1.0
-        },
-        "eleid_17" : {
-            "ALIAS" : "ElectronIDWeight_17",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
-            "SIGMA" : 1.0
-        },
-        "eleid_18" : {
-            "ALIAS" : "ElectronIDWeight_18",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
-            "SIGMA" : 1.0
-        },
-        "elereco_16APV" : {
-            "ALIAS" : "ElectronRecoWeight_16APV",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
-            "SIGMA" : 1.0
-        },
-        "elereco_16" : {
-            "ALIAS" : "ElectronRecoWeight_16",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
-            "SIGMA" : 1.0
-        },
-        "elereco_17" : {
-            "ALIAS" : "ElectronRecoWeight_17",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
-            "SIGMA" : 1.0
-        },
-        "elereco_18" : {
-            "ALIAS" : "ElectronRecoWeight_18",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
-            "SIGMA" : 1.0
-        },
-        "muoid_16APV" : {
-            "ALIAS" : "MuonIDWeight_16APV",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
-            "SIGMA" : 1.0
-        },
-        "muoid_16" : {
-            "ALIAS" : "MuonIDWeight_16",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
-            "SIGMA" : 1.0
-        },
-        "muoid_17" : {
-            "ALIAS" : "MuonIDWeight_17",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
-            "SIGMA" : 1.0
-        },
-        "muoid_18" : {
-            "ALIAS" : "MuonIDWeight_18",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
-            "SIGMA" : 1.0
-        },
-        "muoreco_16APV" : {
-            "ALIAS" : "MuonRecoWeight_16APV",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
-            "SIGMA" : 1.0
-        },
-        "muoreco_16" : {
-            "ALIAS" : "MuonRecoWeight_16",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
-            "SIGMA" : 1.0
-        },
-        "muoreco_17" : {
-            "ALIAS" : "MuonRecoWeight_17",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
-            "SIGMA" : 1.0
-        },
-        "muoreco_18" : {
-            "ALIAS" : "MuonRecoWeight_18",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
-            "SIGMA" : 1.0
-        },
-        "trig_16" : {
-            "ALIAS" : "TriggerEff_16",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
-            "SIGMA" : 1.0
-        },
-        "trig_17" : {
-            "ALIAS" : "TriggerEff_17",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
-            "SIGMA" : 1.0
-        },
-        "trig_18" : {
-            "ALIAS" : "TriggerEff_18",
-            "UP" : "path/FILE:HIST_UP",
-            "DOWN" : "path/FILE:HIST_DOWN",
+            "UP" : "EOS_PATH/FILE:HIST_UP",
+            "DOWN" : "EOS_PATH/FILE:HIST_DOWN",
             "SIGMA" : 1.0
         }
     },
@@ -406,25 +1210,25 @@
             "X" : {
                 "NAME" : "X mass",
                 "TITLE" : "m_{HWlv}",
-                "BINS" : [600,900,1100,1300,1500,2000,4500],
-                "SIGSTART": 1100,
-                "SIGEND": 1300
+                "BINS" : [600,1000,1200,1400,2000,4500],
+                "SIGSTART": 1000,
+                "SIGEND": 1200
             },
             "Y" : {
                 "NAME" : "Y mass",
                 "TITLE" : "m_{Wlv}",
-                "BINS" : [100,300,500,700,1000,2500],
-                "SIGSTART":300,
-                "SIGEND": 700
+                "BINS" : [100,400,600,750,1000,2500],
+                "SLICES": [100,600,750,2500]
+
             }
         }
     },
     "OPTIONS": {
-        "plotTemplateComparisons": true,
+        "plotTemplateComparisons": false,
         "plotPrefitSigInFitB": true,
-        "plotUncerts": false,
+        "plotUncerts": true,
         "plotTitles": false,
-        "year": 1,
+        "year": 2,
         "comment": "the plotEvtsPerUnit option is due to the fact that our binning changes for both X and Y, so this rescales bins that are wider to account for this fact. I.e. If binning goes [100,200,300,500,1000], then the bins are of width 100, 100, 200, 500 GeV and the wider bins will contain more events. So to account for this, considering the selection histos were binned at 100GeV, this scales the wider bins to display them with the proper count as if they were only 100GeV wide",
         "plotEvtsPerUnit": true
   }
